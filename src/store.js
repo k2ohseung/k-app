@@ -29,13 +29,25 @@ const store = new Vuex.Store({
 },
 mutations:{
   addlist(state,{category1,category2}){
-    state.tasks.push({
+    state.infor.push({
       id:state.nextinforId,category1,category2,
     
     })
     state.nextinforId++
   },
-}})
+},
+getters:{
+  filteredTasks(state){
+    if(!state.filter){
+      return state.tasks
+    }
+    return state.tasks.filter(task=>{
+      return task.labelIds.indexOf(state.filter)>=0
+    })
+  }
+
+}}
+)
 
 
 
