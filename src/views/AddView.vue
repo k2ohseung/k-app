@@ -17,7 +17,7 @@
 
 export default {
   data(){
-    return {selected: '',
+    return {category: '',
       
     }
   },
@@ -25,9 +25,7 @@ methods:{
   addlist(){
     return 
   },
-  category(){
-    return 
-  }
+
 }
 }
 </script>
