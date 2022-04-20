@@ -1,12 +1,20 @@
 <template>
   <div>
-    main page
+    search page
   </div>
 </template>
 
+
 <script>
+
 
 export default {
 
+  
 }
 </script>
+
+
+<style scoped>
+
+</style>

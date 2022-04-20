@@ -1,6 +1,6 @@
 <template>
   <div>
-    main page
+add page
   </div>
 </template>
 

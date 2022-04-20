@@ -1,10 +1,11 @@
 <template>
   <div>
-    main page
+list page
   </div>
 </template>
 
 <script>
+// import { defineComponent } from '@vue/composition-api'
 
 export default {
 
