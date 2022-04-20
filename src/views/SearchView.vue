@@ -1,9 +1,9 @@
 <template>
   <div>
-    search page<br>
-    分類<input type="text"><br>
-種類<input type="text"><br>
-<p><button @click="search">検索</button></p>
+    <h1> search page</h1>
+    分類 : <input type="text"><br>
+    種類 : <input type="text"><br>
+    <p><button @click="search">検索</button></p>
   </div>
 </template>
 
