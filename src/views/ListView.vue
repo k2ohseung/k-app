@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>list page</h1>
-    <p>商品名 : {{name}} </p>  <p>販売先 : {{location[1]}}</p><p>販売情報 : </p>
+    <p>商品名 : {{}} </p>  <p>販売先 : {{}}</p><p>販売情報 : </p>
   </div>
 </template>
 
@@ -19,6 +19,12 @@ data(){
     information_t2:[],
 
   }
+},
+  computed:{
+    tasks(){
+      return this.$store.getters.filteredTasks
+    },
 }
 }
+
 </script>
