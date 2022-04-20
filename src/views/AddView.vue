@@ -7,7 +7,7 @@
       <option disabled value="">種類
         </option><option>b</option><option>bbbbbb2</option><option>b3</option></select><br>
     販売先: <button @click="getCurrentPosition">現在地からから当てはまる店舗検索</button><br>
-    値段: <input class="information_p" type="text"><br>円
+    値段: <input class="information_p" type="text">円<br>
     販売形式: <input class="information_t1" type="text"><input class="information-t2" type="text"><br>
     <p><button class="btn" @click="addlist">追加</button></p>
   </div>
