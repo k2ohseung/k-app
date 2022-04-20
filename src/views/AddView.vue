@@ -3,7 +3,7 @@
     <h1>add page</h1>
     分類 : <select v-model="category">
       <option disabled value="">分類</option><option>a</option><option>ああああああa2</option><option>a3</option></select><br>
-    種類 : <select v-model="category">
+    種類 : <select v-model="category2">
       <option disabled value="">種類
         </option><option>b</option><option>bbbbbb2</option><option>b3</option></select><br>
     販売先: <button @click="getCurrentPosition">現在地からから当てはまる店舗検索</button><br>
@@ -19,6 +19,7 @@ export default {
   data(){
     return {
       category: '',
+      category2: '',
       
     }
   },
