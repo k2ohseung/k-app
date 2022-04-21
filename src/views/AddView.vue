@@ -4,7 +4,7 @@
     分類 : <select v-model="newcategory1">
       <option disabled value="">分類</option><option>a</option></select><br>
     種類 : <select v-model="newcategory2">
-      <option disabled value="">種類
+      <option disabled value="">種類aa
         </option><option>b</option><option>bbbbbb2</option><option>その他</option></select><br>
     販売先: <button @click="getCurrentPosition">現在地からから当てはまる店舗検索</button><br>
     値段: <input class="information_p" type="text">円<br>
