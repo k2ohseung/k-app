@@ -45,9 +45,9 @@ getters:{
     return state.infor.filter(task=>{
       return task.category2.indexOf(state.filter)>=0
     })
+      } 
   }
-
-}}
+}
 )
 
 

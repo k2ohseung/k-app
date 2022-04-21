@@ -1,14 +1,19 @@
 <template>
   <div>
     <h1>add page</h1>
-    
+
     分類 : <select v-model="newcategory1">
-      <option value="">分類</option><option>日用品</option><option>食材</option><option class="etc0">その他</option></select>
-      <input type="text" :disabled="etc1" v-model="newcategory11"><br>
+      <option v-for="cat in category" :key="cat.id" :value="cat.name">{{ cat.name }}</option>
+      </select>
+      <form @submit.prevent="addCategory()">
+        <input type="text" :disabled="etc1" v-model="newcategory11"><br>
+      </form>
     種類 : <select v-model="newcategory2">
-      <option disabled value="">種類</option>
-        <option>キッチン用品</option><option>トイレ用品</option><option>野菜</option>><option>惣菜</option><option class="etc0">その他</option></select>
-        <input type="text" :disabled="etc2" v-model="newcategory22"><br>
+      <option v-for="cat in category2" :key="cat.id" :value="cat.name">{{ cat.name }}</option>
+        </select>
+        <form @submit.prevent="addCategory2()">
+        <input type="text" :disabled="etc2" v-model="newcategory22">
+        </form><br>
     販売先: <button @click="getCurrentPosition">現在地からから当てはまる店舗検索</button><br>
     値段: <input v-model="newinfor_p1" type="text">円 <br>
     入り数: <input v-model="newinfor_t1" type="text">
@@ -21,6 +26,18 @@
 export default {
   data(){
     return {
+      category: [
+        { id: 1, name: '日用品' },
+        { id: 2, name: '食材' },
+        { id: 3, name: 'その他' }
+      ],
+      category2:[
+        { id: 1 ,name :"ごま油"},
+        { id: 2 ,name :"トイレットペーパ"},
+        { id: 3 ,name :"その他"},
+      ],
+      nextCategoryId: 4,
+      nextCategory22Id:4,
       newcategory1: '',
       newcategory11: '',
       newcategory2: '',
@@ -30,6 +47,16 @@ export default {
     }
   },
 methods:{
+  addCategory() {
+    this.category.push({ id: this.nextCategoryId, name: this.newcategory11})
+    this.nextCategoryId++
+    this.newcategory11=""
+  },
+  addCategory2() {
+    this.category2.push({ id: this.nextCategoryId, name: this.newcategory22})
+    this.nextCategory22Id++
+    this.newcategory22=""
+  },
   addlist(){
     this.$store.commit("addlist",{
       category1:this.newcategory1,
@@ -47,7 +74,7 @@ methods:{
     this.newinfor_t1=""
     
   },
-    
+    //categori11 をcategori に戻す必要あり
     
   
   getCurrentPosition(){
@@ -59,6 +86,9 @@ methods:{
 
 
 computed:{
+  // infor(){
+  //   return this.$store.state.infor
+  // },
   etc1() {
     return this.newcategory1 === 'その他' ? false : true
   },
