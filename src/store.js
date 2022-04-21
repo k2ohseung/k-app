@@ -29,9 +29,9 @@ const store = new Vuex.Store({
       filter:null
 },
 mutations:{
-  addlist(state,{category1,category2,infor_p1,infor_t1}){
+  addlist(state,{category1,category11,category2,category22,infor_p1,infor_t1}){
     state.infor.push({
-      id:state.nextinforId,category1,category2,infor_p1,infor_t1
+      id:state.nextinforId,category1,category11,category2,category22,infor_p1,infor_t1
     
     })
     state.nextinforId++
