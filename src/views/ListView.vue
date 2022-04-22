@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>list pagess</h1>
+    <h1>list page</h1>
     <ul>
       <li v-for="list in addlist" :key="list.id"></li>
     </ul>
