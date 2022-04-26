@@ -59,28 +59,28 @@ export default {
   
     infor(){
     return this.$store.state.infor
-  },
+      },
     etc1() {
     return this.newcategory1 === 'その他' ? false : true
-  },
+      },
     etc2() {
     return this.newcategory2 === 'その他' ? false : true
-  },
+      },
   //store のinforから抽出してcategory1を取り出す
     category1List() {
-    const result = this.infor.map((item) => {
+      const result = this.infor.map((item) => {
       return item.category1
-    })
+      })
     //重複データを消す
-    return new Set(result)
-  },
+      return new Set(result)
+    },
     category2List() {
     const result = this.infor.map((item) => {
       return item.category2
     })
     return new Set(result)
-  }
-},
+    }
+  },
 }
 
 

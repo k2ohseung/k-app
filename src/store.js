@@ -48,42 +48,36 @@ const store = new Vuex.Store({
     ],
     nextinforId:5,
     filter:null
-},
-actions:{
-  save({state}){
-    const data={
+    },
+  actions:{
+    save({state}){
+      const data={
       infor:state.infor,
       nextinforId:state.nextinforId
 
     }
-    localStorage.setItem("k-app",JSON.stringify(data))
-  },
-  restore({commit}){
-    const data=localStorage.getItem("k-app")
-    if(data){
+  localStorage.setItem("k-app",JSON.stringify(data))
+    },
+    restore({commit}){
+      const data=localStorage.getItem("k-app")
+      if(data){
       commit("restore",JSON.parse(data))
-    }
-  }
-
-
-
-  },
-mutations:{
-  restore(state,{infor,nextinforId}){
+      }
+      }
+    },
+  mutations:{
+    restore(state,{infor,nextinforId}){
     state.infor=infor
     state.nextinforId=nextinforId
-  },
-
-
-
-  addlist(state,{category1,category11,category2,category22,name,infor_p1,infor_t1,infor_p0}){
+    },
+    addlist(state,{category1,category11,category2,category22,name,infor_p1,infor_t1,infor_p0}){
     state.infor.push({
       id:state.nextinforId,category1,category11,category2,category22,name,infor_p1,infor_t1,infor_p0
-    
     })
     state.nextinforId++
+    },
+    searchname(state,name)
   },
-},
   getters:{
 
   },

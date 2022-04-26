@@ -1,4 +1,4 @@
-<template>
+<template>  
   <div>
     <h1>add page</h1>
     <!-- <CategoryView/> -->
@@ -29,9 +29,9 @@
 // import CategoryView from '@/components/CategoryView.vue'
 
 export default {
-components:{
+  components:{
   // CategoryView
-},
+  },
 
   //ページ読み込んだら自動読み込み
   created(){
@@ -51,7 +51,7 @@ components:{
       newinfor_t1:"",
     }
   },
-methods:{
+  methods:{
   //テキスト入力してエンター押したらcategory にpushされる
   //newcategory11はテキストタグ1の変数
   // addCategory() {
@@ -68,39 +68,36 @@ methods:{
   //テキスト入力してエンター押したらcategory にpushされる
 
 
-  save(){
+    save(){
       this.$store.dispatch("save")
     },
       //クリックイベントで読み込み(現在OFFにしてる)  
   // restore(){
   //     this.$store.dispatch("restore")
   //   },
-  addlist(){
+    addlist(){
     //現在ぺーじで入力されてる情報をstoreのaddlistに各項目で登録するメソッド
-    this.$store.commit("addlist",{
-      category1:this.newcategory1,
-      category11:this.newcategory11,
-      category2:this.newcategory2,
-      category22:this.newcategory22,
-      name:this.name,
-      infor_p1:this.newinfor_p1,
-      infor_p0:parseInt(this.newinfor_p1)/parseInt(this.newinfor_t1),
-      infor_t1:this.newinfor_t1,
+      this.$store.commit("addlist",{
+        category1:this.newcategory1,
+        category11:this.newcategory11,
+        category2:this.newcategory2,
+        category22:this.newcategory22,
+        name:this.name,
+        infor_p1:this.newinfor_p1,
+        infor_p0:parseInt(this.newinfor_p1)/parseInt(this.newinfor_t1),
+        infor_t1:this.newinfor_t1,
       
-    })
-
+      })
     //追加したら入力されてるのを空白にする
-    this.newcategory1=""
-    this.newcategory11=""
-    this.newcategory2=""
-    this.newcategory22="" 
-    this.name=""
-    this.newinfor_p1=""
-    this.newinfor_t1=""
-  
+        this.newcategory1=""
+        this.newcategory11=""
+        this.newcategory2=""
+        this.newcategory22="" 
+        this.name=""
+        this.newinfor_p1=""
+        this.newinfor_t1=""
     //追加したら入力されてるのを空白にする
-    
-  },
+      },
     //テキストタグのcategori11をstoreのinforにpushする必要あり
     
   
@@ -110,31 +107,31 @@ methods:{
     },
 
 //常に更新
-computed:{
-  infor(){
-    return this.$store.state.infor
-  },
+  computed:{
+    infor(){
+      return this.$store.state.infor
+    },
     etc1() {
-    return this.newcategory1 === 'その他' ? false : true
-  },
+      return this.newcategory1 === 'その他' ? false : true
+    },
     etc2() {
     return this.newcategory2 === 'その他' ? false : true
-  },
+    },
   //store のinforから抽出してcategory1を取り出す
     category1List() {
-    const result = this.infor.map((item) => {
+      const result = this.infor.map((item) => {
       return item.category1
     })
     //重複データを消す
-    return new Set(result)
+      return new Set(result)
   },
     category2List() {
-    const result = this.infor.map((item) => {
+      const result = this.infor.map((item) => {
       return item.category2
     })
-    return new Set(result)
+      return new Set(result)
   }
-},
+  },
 }
 </script>
 
