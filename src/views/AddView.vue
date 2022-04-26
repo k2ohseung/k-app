@@ -52,6 +52,7 @@ export default {
     }
   },
   methods:{
+
   //テキスト入力してエンター押したらcategory にpushされる
   //newcategory11はテキストタグ1の変数
   // addCategory() {

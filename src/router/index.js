@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,11 +15,18 @@ const routes = [
     path: '/search',
     name: 'search',
     component: () => import('../views/SearchView.vue')
-  },  {
+  },  
+  {
     path: '/addlist',
     name: 'addlist',
     component: () => import('../views/AddView.vue')
   },
+  {
+    path: '/MapMap',
+    name: 'MapMap',
+    component: () => import('../views/MapView.vue')
+  },
+  
   {
     path: '/list',
     name: 'list',
