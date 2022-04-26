@@ -20,10 +20,6 @@ data(){
   }
 },
   computed:{
-    addlist(){
-      return this.$store.getters.filteredlist
-    },
-    
 }
 }
 
