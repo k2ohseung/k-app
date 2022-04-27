@@ -1,15 +1,12 @@
 <template>
   <div>
-    <GM/>
+    
   </div>
 </template>
 
 <script>
-import GM from "@/components/GoogleMap.vue"
 export default {
-components:{
-  GM
-},
+
 }
 </script>
 
