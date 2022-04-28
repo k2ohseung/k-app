@@ -16,20 +16,28 @@
         <input type="text" :disabled="etc2" v-model="newcategory22"><br>
         <!-- </form><br> -->
     名前: <input v-model="name" type="text"><br>
-    販売先: <button @click="getCurrentPosition">現在地からから当てはまる店舗検索</button><br>
+    販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
     値段: <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input v-model="newinfor_t1" type="number">
     <p><button class="btn" @click="addlist">追加</button></p>
-    <p><button class="btn" @click="save">保存</button></p>
+    <!-- 保存メソッド
+    <p><button class="btn" @click="save">保存</button></p> -->
     <!-- <p><button class="btn" @click="restore">restore</button></p> -->
+    <gmap-map @click="place($event)" id="map" :zoom="19" :center="center" style="width:100%; height: 600px;" >
+      <gmap-circle :center="center" :options="{ fillColor: '#0000FF', fillOpacity: 0.3, strokeWeight: 1, strokeColor: '#0000FF', radius: 25, clickable: false }" > </gmap-circle>
+    </gmap-map> 
+    
+    
+    <!-- <GM/> -->
   </div>
 </template>
 
 <script>
 // import CategoryView from '@/components/CategoryView.vue'
-
+// import GM from '@/components/GoogleMap.vue'
 export default {
   components:{
+    // GM
   // CategoryView
   },
 
@@ -40,6 +48,9 @@ export default {
   },
   data(){
     return {
+      center: {lat : "",lng : ""}, 
+      locPlaces: [], 
+      existingPlace: null ,
       name:"",
       nextCategoryId: 4,
       nextCategory22Id:4,
@@ -49,10 +60,32 @@ export default {
       newcategory22: '',
       newinfor_p1:"",
       newinfor_t1:"",
+      lat:"",
+      lng:"",
+      newlocation1:[this.lat,this.lng],
+      newlocation0:"",
+    }
+  },
+  mounted() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function(position){
+          let coords = position.coords;
+          this.center.lat = coords.latitude;
+          this.center.lng = coords.longitude;
+        }.bind(this),
+      );
     }
   },
   methods:{
-
+    place(event){
+            if (event) {
+              this.lat = event.latLng.lat()
+              this.lng = event.latLng.lng()
+              this.newlocation1[0]=this.lat
+              this.newlocation1[1]=this.lng
+            }
+      },
   //テキスト入力してエンター押したらcategory にpushされる
   //newcategory11はテキストタグ1の変数
   // addCategory() {
@@ -68,10 +101,13 @@ export default {
   // },
   //テキスト入力してエンター押したらcategory にpushされる
 
+//ローカルストレジに保存するメソッド
+    // save(){
+    //   this.$store.dispatch("save")
+    // },
 
-    save(){
-      this.$store.dispatch("save")
-    },
+
+
       //クリックイベントで読み込み(現在OFFにしてる)  
   // restore(){
   //     this.$store.dispatch("restore")
@@ -87,6 +123,8 @@ export default {
         infor_p1:this.newinfor_p1,
         infor_p0:parseInt(this.newinfor_p1)/parseInt(this.newinfor_t1),
         infor_t1:this.newinfor_t1,
+        location1: { lat:this.lat, lng: this.lng },
+        location0:this.newlocation0
       
       })
     //追加したら入力されてるのを空白にする
@@ -97,6 +135,8 @@ export default {
         this.name=""
         this.newinfor_p1=""
         this.newinfor_t1=""
+        this.newlocation1=""
+        this.newlocation0=""
     //追加したら入力されてるのを空白にする
       },
     //テキストタグのcategori11をstoreのinforにpushする必要あり
@@ -141,7 +181,9 @@ export default {
 .information_t1 {
 margin-right: 5px;
 }
-  
+  #hidden{
+    display:none;
+  }
 
 </style>
 
