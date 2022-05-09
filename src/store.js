@@ -9,18 +9,18 @@ const store = new Vuex.Store({
         id:1,
         category1:"その他",
         category2:"その他",
-        name:"",  
-        location0:"その他",
+        name:"みそ",  
+        location0:"ライフ",
         location1:"",
-        infor_p0:"",
-        infor_p1:"",
-        infor_t1:"",
+        infor_p0:"1",
+        infor_p1:"300",
+        infor_t1:"1",
       },
       {
         id:2,
         category1:"日用品",
         category2:"ティッシュ",
-        name:"",
+        name:"ティッシュ",
         location0:"コーナン",
         location1:"",
         infor_p0:20,
@@ -31,7 +31,7 @@ const store = new Vuex.Store({
         id:3,
         category1:"日用品",
         category2:"トイレットペーパー",
-        name:"",
+        name:"トイレットペーパー",
         location0:"コーナン",
         location1:"",
         infor_p0:50,
@@ -69,8 +69,19 @@ const store = new Vuex.Store({
         infor_p1:300,
         infor_t1:300,
       },
+      {
+        id:7,
+        category1:"食品",
+        category2:"調味料",
+        name:"ケチャップ",
+        location0:"コンビニ",
+        location1: { lat: 0, lng: 0},
+        infor_p0:400/300,
+        infor_p1:400,
+        infor_t1:300,
+      },
     ],
-    nextinforId:7,
+    nextinforId:8,
     filter:null
     },
   actions:{
@@ -102,6 +113,7 @@ const store = new Vuex.Store({
     },
   },
   getters:{
+    
 
   },
 

@@ -20,8 +20,8 @@
     値段: <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input v-model="newinfor_t1" type="number">
     <p><button class="btn" @click="addlist">追加</button></p>
-    <!-- 保存メソッド
-    <p><button class="btn" @click="save">保存</button></p> -->
+    <!-- 保存メソッド -->
+    <p><button class="btn" @click="save">保存</button></p>
     <!-- <p><button class="btn" @click="restore">restore</button></p> -->
     <gmap-map @click="place($event)" id="map" :zoom="19" :center="center" style="width:100%; height: 600px;" >
       <gmap-circle :center="center" :options="{ fillColor: '#0000FF', fillOpacity: 0.3, strokeWeight: 1, strokeColor: '#0000FF', radius: 25, clickable: false }" > </gmap-circle>
@@ -102,9 +102,9 @@ export default {
   //テキスト入力してエンター押したらcategory にpushされる
 
 //ローカルストレジに保存するメソッド
-    // save(){
-    //   this.$store.dispatch("save")
-    // },
+    save(){
+      this.$store.dispatch("save")
+    },
 
 
 
