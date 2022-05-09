@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1> Search Page</h1>
+    <h1> Search Page </h1>
     <input type="text" v-model="searchName">
     <p><button class="btn" @click="search">商品名で検索</button></p>
     <table v-if="onoff">
