@@ -21,7 +21,7 @@
         </tr>
     </tbody>
     </table>
-    
+    {{empty}}
       {{distta0}} 
   </div>
 </template>
@@ -85,6 +85,7 @@ export default {
 
   },
   computed: {
+   
     
   
     infor(){
@@ -96,11 +97,8 @@ export default {
         })
     },  
 
-  },
+  }
 }
-// https://qiita.com/kawanet/items/a2e111b17b8eb5ac859a 2箇所座標で距離キュとく
-// https://teratail.com/questions/341461   vue.jsでボタンクリックで絞り込み検索結果を表示
-// https://teratail.com/questions/178834?sort=2
 </script>
 
 
