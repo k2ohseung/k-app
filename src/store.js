@@ -43,8 +43,8 @@ const store = new Vuex.Store({
         category1:"食品",/* 大区分 */
         category2:"加工品",/*  小区分*/
         name:"ウインナー",/* 品名 */
-        location0:"ライフ",/*販売先*/
-        location1:{ lat: 34.6910964, lng: 135.4969132},/*販売先の座標*/
+        location0:"ライフ 土佐堀店",/*販売先*/
+        location1:{ lat: 34.68926290260607, lng: 135.49135386943817},/*販売先の座標*/
         infor_p0:22,/* 1個の値段 */
         infor_p1:1100,/* 販売値段 */
         infor_t1:50,/*  販売内容量*/
@@ -53,8 +53,8 @@ const store = new Vuex.Store({
         category1:"食品",
         category2:"調味料",
         name:"醤油",
-        location0:"ライフ",
-        location1:{ lat: 34.6910964, lng: 135.4969132},
+        location0:"ライフ 西九条店",
+        location1:{ lat: 34.683140321434365, lng: 135.46425607526396},
         infor_p0:2.5,
         infor_p1:400,
         infor_t1:1000,
@@ -63,8 +63,8 @@ const store = new Vuex.Store({
         category1:"食品",
         category2:"調味料",
         name:"ケチャップ",
-        location0:"ライフ",
-        location1: { lat: 34.6910964, lng: 135.4969132},
+        location0:"ライフ 西九条店",
+        location1: { lat: 34.683140321434365, lng: 135.46425607526396},
         infor_p0:1,
         infor_p1:300,
         infor_t1:300,
@@ -74,12 +74,13 @@ const store = new Vuex.Store({
         category1:"食品",
         category2:"調味料",
         name:"ケチャップ",
-        location0:"コンビニ",
-        location1: { lat: 34.69612597306216, lng: 135.4869094491005},
+        location0:"セブンイレブン 福島店",
+        location1: { lat: 34.69403710491371, lng: 135.4871158286522},
         infor_p0:400/300,
         infor_p1:400,
         infor_t1:300,
       },
+    
     ],
     nextinforId:8,
     filter:null
@@ -122,3 +123,6 @@ const store = new Vuex.Store({
 
 
 export default store
+
+
+

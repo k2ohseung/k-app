@@ -5,6 +5,7 @@
       <router-link to="/addlist">Addlist</router-link> |
       <router-link to="/search">Search</router-link> |
       <router-link to="/MapMap">map</router-link> |
+      <router-link to="/test">testpage</router-link> |
       <!-- <router-link to="/list">List</router-link> | -->
       <router-link to="/about">About</router-link>
     </nav>
