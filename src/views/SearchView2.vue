@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody v-if="onoff">
-        <tr v-for="infor2 in infor" :key="infor2.id">
+        <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
             <td>{{ infor2.location0 }}</td>
             <td>{{ distta(infor2.location1.lat, infor2.location1.lng) }}m ,徒歩:約{{times}}分</td>
@@ -21,6 +21,7 @@
         </tr>
     </tbody>
     </table>
+    
       {{distta0}} 
   </div>
 </template>
@@ -46,6 +47,8 @@ export default {
       }
       
     },
+
+        
   //ページ開いたときに位置情報取得
   mounted() {
     if (navigator.geolocation) {  
@@ -62,11 +65,7 @@ export default {
   
     search(){ 
       this.onoff=true
-      console.log(this.onoff)
-      console.log(this.searchName)
-      if(this.onoff){return this.infor.filter(infor00 => {
-          return infor00.name.includes(this.searchName)
-        })}
+      
     }, 
 
 
@@ -83,22 +82,25 @@ export default {
     distta2(){
       }
     
+
   },
   computed: {
+    
   
     infor(){
       return this.$store.state.infor
     },
-    // search_name(){
-    //     return this.infor.filter(infor => {
-    //       return infor.name.includes(this.searchName)
-    //     })
-    // },  
+    search_name(){
+        return this.infor.filter(infor => {
+          return infor.name.includes(this.searchName)
+        })
+    },  
 
   },
 }
 // https://qiita.com/kawanet/items/a2e111b17b8eb5ac859a 2箇所座標で距離キュとく
 // https://teratail.com/questions/341461   vue.jsでボタンクリックで絞り込み検索結果を表示
+// https://teratail.com/questions/178834?sort=2
 </script>
 
 
