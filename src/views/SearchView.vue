@@ -11,7 +11,7 @@
             <th>1個(m,g)あたり価格</th>
         </tr>
       </thead>
-      <tbody v-if="true">
+      <tbody v-if="onoff">
         <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
             <td>{{ infor2.location0 }}</td>
@@ -41,7 +41,6 @@ export default {
         times:"",
         infor_p0:"",
         filter:null,
-        distta0:"",
       }
       
     },
@@ -60,9 +59,6 @@ export default {
     }
   },
   methods:{
-
-
-    
     distta(lat, lng){
       let A = { x: lat, y: lng};
       return A},
@@ -71,16 +67,19 @@ export default {
     //   135.4969214      現在地
     //   34.69403710491371      セブンイレブン 福島店
     //   135.4871158286522      セブンイレブン 福島店  
-    // 移動経路  1.4km 直線距離 0.96
+    // 移動経路  1.4km 直線距離 0.96km
   //calexe は直線距離計算メソッド
   calexe(){
-    let x1 = 34.691092;
-    let y1 = 135.4969214;    
-    let x2 = 34.69403710491371;
-    let y2 = 135.4871158286522;    
-    let dis_x = x1 - x2;
+    let x1 = 34.691092; //現在地    this.latitude
+    let y1 = 135.4969214;    //現在地    this.longitude
+    let x2 = 34.69403710491371; //目的地    filterされた  search_name.lat
+    let y2 = 135.4871158286522;    //目的地     filterされた  search_name.lng]
+
+
+
+    let dis_x = x1 - x2;  
     let dix_y = y1 - y2;
-    let result1 = Math.sqrt(Math.abs(dis_x*dis_x) + Math.abs(dix_y*dix_y));
+    let result1 = Math.sqrt(Math.abs(dis_x*dis_x) + Math.abs(dix_y*dix_y))*100;
     console.log(result1);
     }
     
@@ -99,12 +98,13 @@ export default {
       return this.$store.state.infor
     },
     search_name(){
-        return this.infor.filter(infor => {
+      
+      {return this.infor.filter(infor => {if(this.searchName.length>0)
           return infor.name.includes(this.searchName)
         })
-    },  
+    }
 
-  }}
+  }}}
 
 </script>
 
