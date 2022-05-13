@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div>{{word}}</div>
-    <form :submit="onSubmitForm">
+    <form :submit.="onSubmitForm">
 <input type="text" v-model="value">
 <button type="submit">enter</button>
     </form>

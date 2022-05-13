@@ -26,13 +26,7 @@ const routes = [
     name: 'addlist',
     component: () => import('../views/AddView.vue')
   },
-  {
-    path: '/MapMap',
-    name: 'MapMap',
-    component: () => import('../views/MapView.vue')
-  },
-  
-  {
+    {
     path: '/list',
     name: 'list',
     component: () => import('../views/ListView.vue')

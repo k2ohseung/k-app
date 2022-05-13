@@ -15,12 +15,12 @@
         <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
             <td>{{ infor2.location0 }}</td>
-            <td>{{ distta(infor2.location1.lat, infor2.location1.lng) }}m ,徒歩:約{{times}}分</td>
+            <td>現在地 x:{{latitude}} y:{{longitude}} x:{{ infor2.location1.lat }} y:{{infor2.location1.lng}}m ,徒歩:約{{times}}分</td>
             <td>{{ infor2.infor_p0 }}円</td>
         </tr>
     </tbody>
     </table>
-    <button @click="calexe">btn</button>
+<button @click="calexe">計算</button>
     
   </div>
 </template>
@@ -41,6 +41,7 @@ export default {
         times:"",
         infor_p0:"",
         filter:null,
+        distance:"",
       }
       
     },
@@ -59,10 +60,6 @@ export default {
     }
   },
   methods:{
-    distta(lat, lng){
-      let A = { x: lat, y: lng};
-      return A},
-
     //   34.691092        現在地
     //   135.4969214      現在地
     //   34.69403710491371      セブンイレブン 福島店
