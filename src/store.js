@@ -80,9 +80,20 @@ const store = new Vuex.Store({
         infor_p1:400,
         infor_t1:300,
       },
+      {
+        id:8,
+        category1:"食品",
+        category2:"調味料",
+        name:"痛み止め",
+        location0:"アカカベ　肥後橋店",
+        location1: { lat: 34.69088923978887, lng: 135.49632235263374},
+        infor_p0:1080/36,
+        infor_p1:1080,
+        infor_t1:36,
+      },
     
     ],
-    nextinforId:8,
+    nextinforId:9,
     filter:null
     },
   actions:{

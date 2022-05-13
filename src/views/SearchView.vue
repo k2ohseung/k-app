@@ -2,25 +2,26 @@
   <div>
     <h1> Search Page </h1>
     <input type="text" v-model="searchName">
-    <p><button class="btn" @click="search">商品名で検索</button></p>
-    <table >
+        <table >
       <thead>
         <tr>
             <th>商品名</th>
             <th>店舗名</th>
-            <th>現在地からの距離</th>
+            <th>現在地からの直線距離,時間</th>
             <th>1個(m,g)あたり価格</th>
         </tr>
       </thead>
-      <tbody v-if="onoff">
+      <tbody v-if="true">
         <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
             <td>{{ infor2.location0 }}</td>
-            <td>{{ infor2.distance }}m ,徒歩:約{{times}}分</td>
+            <td>{{ distta(infor2.location1.lat, infor2.location1.lng) }}m ,徒歩:約{{times}}分</td>
             <td>{{ infor2.infor_p0 }}円</td>
         </tr>
     </tbody>
     </table>
+    <button @click="calexe">btn</button>
+    
   </div>
 </template>
 
@@ -29,26 +30,26 @@
 
 export default {
 
+
   data(){
       return {
-        onoff:false,
         searchName:"",
         latitude: 0,
         longitude: 0,
-        names:"",
-        result:{},
         location0:"(店名)",
         location1:"座標",
-        distance:"",
         times:"",
         infor_p0:"",
-        infor_t1:"",
         filter:null,
+        distta0:"",
       }
+      
     },
+  
+        
   //ページ開いたときに位置情報取得
   mounted() {
-    if (navigator.geolocation) {
+    if (navigator.geolocation) {  
       navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords;
@@ -59,21 +60,41 @@ export default {
     }
   },
   methods:{
+
+
     
-    search(){
-      return this.infor.filter(infor => {
-          return infor.name.includes(this.searchName)
-        }),
+    distta(lat, lng){
+      let A = { x: lat, y: lng};
+      return A},
 
-
-      this.onoff=!this.onoff;
-      //result に検索結果を代入するコード作成後、names,location0,distance,infor_p0を各々代入するコード作成
-      // return this.names=this.infor,
-      // console.log(this.names);
-    },
+    //   34.691092        現在地
+    //   135.4969214      現在地
+    //   34.69403710491371      セブンイレブン 福島店
+    //   135.4871158286522      セブンイレブン 福島店  
+    // 移動経路  1.4km 直線距離 0.96
+  //calexe は直線距離計算メソッド
+  calexe(){
+    let x1 = 34.691092;
+    let y1 = 135.4969214;    
+    let x2 = 34.69403710491371;
+    let y2 = 135.4871158286522;    
+    let dis_x = x1 - x2;
+    let dix_y = y1 - y2;
+    let result1 = Math.sqrt(Math.abs(dis_x*dis_x) + Math.abs(dix_y*dix_y));
+    console.log(result1);
+    }
+    
   },
-  
+
+
   computed: {
+    onoff(){
+      if(this.searchName===""){
+        return false}
+        else{
+          return true}
+      },
+    
     infor(){
       return this.$store.state.infor
     },
@@ -81,12 +102,10 @@ export default {
         return this.infor.filter(infor => {
           return infor.name.includes(this.searchName)
         })
-    },
-    
+    },  
 
-},
-  } 
-// https://qiita.com/kawanet/items/a2e111b17b8eb5ac859a 2箇所座標で距離キュとく
+  }}
+
 </script>
 
 
@@ -105,3 +124,7 @@ table{
         background-color: #1E90FF;
     }
 </style>
+
+
+
+
