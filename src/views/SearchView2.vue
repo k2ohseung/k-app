@@ -15,12 +15,11 @@
         <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
             <td>{{ infor2.location0 }}</td>
-            <td>現在地 x:{{latitude}} y:{{longitude}} x:{{ infor2.location1.lat }} y:{{infor2.location1.lng}}m ,徒歩:約{{times}}分</td>
-            <td>{{ infor2.infor_p0 }}円</td>
+            <td>{{distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng)*15)}}分</td>
+            <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
         </tr>
     </tbody>
     </table>
-<button @click="calexe">計算</button>
     
   </div>
 </template>
@@ -41,7 +40,6 @@ export default {
         times:"",
         infor_p0:"",
         filter:null,
-        distance:"",
       }
       
     },
@@ -59,31 +57,18 @@ export default {
       );
     }
   },
-  methods:{
-    //   34.691092        現在地
-    //   135.4969214      現在地
-    //   34.69403710491371      セブンイレブン 福島店
-    //   135.4871158286522      セブンイレブン 福島店  
-    // 移動経路  1.4km 直線距離 0.96km
-  //calexe は直線距離計算メソッド
-  calexe(){
-    let x1 = 34.691092; //現在地    this.latitude
-    let y1 = 135.4969214;    //現在地    this.longitude
-    let x2 = 34.69403710491371; //目的地    filterされた  search_name.lat
-    let y2 = 135.4871158286522;    //目的地     filterされた  search_name.lng]
-
-
-
-    let dis_x = x1 - x2;  
-    let dix_y = y1 - y2;
-    let result1 = Math.sqrt(Math.abs(dis_x*dis_x) + Math.abs(dix_y*dix_y))*100;
-    console.log(result1);
-    }
-    
-  },
 
 
   computed: {
+    distance() {
+      // 関数の返り値に別の関数を定義し、別の関数内で引数を受け取ってあげる
+      return function(lat0,lng0,lat,lng) {
+        let disx=lat0-lat;
+        let disy=lng0-lng;
+      let result1=Math.sqrt(Math.abs(disx*disx) + Math.abs(disy*disy))*100;
+      return result1
+      }
+    },
     onoff(){
       if(this.searchName===""){
         return false}
@@ -95,13 +80,17 @@ export default {
       return this.$store.state.infor
     },
     search_name(){
-      
-      {return this.infor.filter(infor => {if(this.searchName.length>0)
+      return this.infor.filter(infor => {
+        if(this.searchName.length>0)
           return infor.name.includes(this.searchName)
         })
-    }
-
-  }}}
+      
+    },
+  },
+  methods:{
+    
+  }
+  }
 
 </script>
 
