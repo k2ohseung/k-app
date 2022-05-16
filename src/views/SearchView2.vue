@@ -9,6 +9,7 @@
             <th>店舗名</th>
             <th>現在地からの直線距離,時間</th>
             <th>1個(m,g)あたり価格</th>
+            <th>販売形式(個,m,g)</th>
         </tr>
       </thead>
       <tbody v-if="onoff">
@@ -17,6 +18,7 @@
             <td>{{ infor2.location0 }}</td>
             <td>{{distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng)*15)}}分</td>
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
+            <td>{{ infor2.infor_t1 }}</td>
         </tr>
     </tbody>
     </table>
