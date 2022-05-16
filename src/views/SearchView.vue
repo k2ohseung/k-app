@@ -15,17 +15,17 @@
       <tbody v-if="onoff">
         <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
-            <td>{{ infor2.location0 }}</td>
+            <!-- <td><a target="_blank" :href='"https://www.google.com/search?q=" + (infor2.location1.lat)+"%2C"+(infor2.location1.lng)'>{{ infor2.location0 }}</a></td> -->
+            <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1.lat)+"%2C"+(infor2.location1.lng)'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
             <td>{{distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng)*15)}}分</td>
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
             <td>{{ infor2.infor_t1 }}</td>
         </tr>
     </tbody>
     </table>
-    
   </div>
 </template>
-
+//
 <script>
 
 
