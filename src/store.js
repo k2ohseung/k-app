@@ -75,7 +75,7 @@ const store = new Vuex.Store({
         category2:"調味料",
         name:"ケチャップ",
         location0:"セブンイレブン 福島二丁目店",
-        location1: { lat: 34.69392729425671 , lng: 135.48749953508377},
+        location1: { lat: 34.69499521550559 , lng: 135.4862194508314},
         infor_p0:400/300,
         infor_p1:400,
         infor_t1:300,
