@@ -9,7 +9,7 @@
             <th>店舗名</th>
             <th>現在地からの直線距離,時間</th>
             <th>1個(m,g)あたり価格</th>
-            <th>販売形式(個,m,g)</th>
+            <th>販売規格(個,m,g)</th>
         </tr>
       </thead>
       <tbody v-if="onoff">
