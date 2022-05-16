@@ -11,7 +11,7 @@ import * as VueGoogleMaps from "vue2-google-maps" // Import package
 Vue.config.productionTip = false
 Vue.use(VueGoogleMaps, { 
     load: { 
-      key: "AIzaSyAsRf91TuMS99c-n80Zk8a3Q_MhZRCmqls", 
+      key: "AIzaSyAEdyDhwzgy5nc6QvL3fcvAbSyFBYivKaE", 
       libraries: "places", 
       region: "KR" },
       autobindAllEvents: false,

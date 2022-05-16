@@ -23,7 +23,7 @@
     <!-- 保存メソッド -->
     <p><button class="btn" @click="save">保存</button></p>
     <!-- <p><button class="btn" @click="restore">restore</button></p> -->
-    <gmap-map @click="place($event)" id="map" :zoom="19" :center="center" style="width:100%; height: 600px;" >
+    <gmap-map @click="place($event)" id="map" :zoom="18" :center="center" style="width:100%; height: 600px;" >
       <gmap-circle :center="center" :options="{ fillColor: '#0000FF', fillOpacity: 0.3, strokeWeight: 1, strokeColor: '#0000FF', radius: 25, clickable: false }" > </gmap-circle>
     </gmap-map> 
     
