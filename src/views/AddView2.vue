@@ -18,10 +18,11 @@
     販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
     値段: <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input v-model="newinfor_t1" type="number">
-    <p><button class="btn" @click="addlist">追加</button></p>
-    <!-- 保存メソッド -->
-    <!-- <p><button class="btn" @click="save">保存</button></p> -->
-    <!-- <p><button class="btn" @click="restore">restore</button></p> -->
+    <p><button class="btn" @click="Addlist">追加</button></p>
+    <label>メニュー画像：<input ref="imgUp" type="file" id="fileImg"></label>
+
+    <!-- <button @click="imgUpload">IMGアップロード</button>
+    <button @click="removeMenu(list.id, list.menuImgFile)">データ削除</button> -->
     <gmap-map @click="place($event)" id="map" :zoom="19" :center="center" style="width:100%; height: 600px;" >
       <gmap-circle :center="center" :options="{ fillColor: '#0000FF', fillOpacity: 0.3, strokeWeight: 1, strokeColor: '#0000FF', radius: 25, clickable: false }" > </gmap-circle>
     </gmap-map> 
@@ -32,9 +33,14 @@
 </template>
 
 <script>
-// import CategoryView from '@/components/CategoryView.vue'
-// import GM from '@/components/GoogleMap.vue'
+import {db,storage} from "@/firebase/firesbase";
+import {collection ,serverTimestamp, addDoc , onSnapshot, query, orderBy, doc } from "firebase/firestore"
+import {getDownloadURL, ref, uploadBytesResumable, deleteObject,where, getDocs,deleteDoc} from 'firebase/storage';
+
+
 export default {
+  name:"App",
+
   components:{
     // GM
   // CategoryView
@@ -47,10 +53,18 @@ export default {
   },
   data(){
     return {
+      id:0,
+      category1:"",
+      category2:"",
+      name:"",
+      location0:"",
+      location1:[],
+      infor_p0:"",
+      infor_p1:"",
+      infor_t1:"",
       center: {lat : "",lng : ""}, 
       locPlaces: [], 
       existingPlace: null ,
-      name:"",
       // nextCategoryId: 4,
       // nextCategory22Id:4,
       newcategory1: '',
@@ -66,6 +80,28 @@ export default {
     }
   },
   mounted() {
+    const q = query(collection(db,`list`),orderBy("id"))
+    onSnapshot(q,snapshot=>{
+      const allId=snapshot.docs.map(doc =>{
+        return doc.data().id;
+      })
+      if(allId.length>0){
+        this.id=allId.reduce((a,b)=>a>b ? a:b);
+      }
+    snapshot.docChanges().forEach(change =>{
+      if(change.type === 'added'){
+        this.list.push(change.doc.data());
+          console.log('added',change.doc.data())
+          }
+      if(change.type === 'removed') {
+          console.log('removed', change.doc.data());
+          const currentArry = this.list.filter(menu => {
+            return menu.id !== change.doc.data().id;
+          })
+          this.list = currentArry;
+        }
+    })
+  })
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function(position){
@@ -76,7 +112,37 @@ export default {
       );
     }
   },
+
   methods:{
+    Addlist(){
+      addDoc(collection(db,"list"),{
+        id:this.id+=1,
+        category1:this.newcategory1,
+        category2:this.newcategory2,
+        name:this.name,
+        location0:this.newlocation0,
+        location1:this.newlocation1,
+        infor_p1:this.newinfor_p1,
+        infor_t1:this.newinfor_t1,
+        created: serverTimestamp(),
+        })
+      .then((doc)=>{
+        console.log(`データ追加に成功しました(${doc.id})`);
+        //登録後てきすとをクリアにする
+        this.name="";
+        this.newcategory1="";
+        this.newcategory2="";
+        this.newlocation0="";
+        this.newlocation1="";
+        this.newinfor_p1="";
+        this.newinfor_t1="";
+      })
+      .catch(error => {
+        //エラー時の処理
+        console.log(`データ追加に失敗しました(${error})`);
+      })
+    },
+    },
     place(event){
             if (event) {
               this.lat = event.latLng.lat()
@@ -139,12 +205,55 @@ export default {
     //追加したら入力されてるのを空白にする
       },
     //テキストタグのcategori11をstoreのinforにpushする必要あり
-    
+
+
+
+    async removeMenu(id, photo) {
+      //削除ボタンをクリックした商品データをfirestore内から削除
+      const delQuery = query(collection(db, 'list'), where('id', '==', id))
+      const delSnapshot = await getDocs(delQuery);
+      delSnapshot.forEach((delSnap) => {
+        // console.log(doc.id, " => ", doc.data());
+        console.log(delSnap.id);
+        deleteDoc(doc(db, 'list', delSnap.id));
+      });
+      //storage内の画像データも同時に削除
+      if(photo) {
+        const delPhotoRef = ref(storage, `images/${photo}`);
+        deleteObject(delPhotoRef).then(() => {
+          console.log("Photo deleted successfully")
+        }).catch((error) => {
+          console.log("Error Photo deleted", error)
+        });
+        // console.log('インデックス',id);
+      }
+
+    },
+    imgUpload() {
+      //ファイルの取得
+      this.file = this.$refs.imgUp.files[0];
+      //画像ファイルへの参照を作成
+      const userImageRef = ref(storage, `images/${this.file.name}`)
+      //画像ファイルのアップロードメソッド
+      uploadBytesResumable(userImageRef, this.file).then((snapshot) => {
+        console.log('Uploaded a blob or file!', snapshot);
+        getDownloadURL(snapshot.ref)
+        .then((downloadURL) => {
+          //firestoreにURLとファイル名を保存するため
+          this.menuImgUrl = downloadURL;
+          this.menuImgFile = this.file.name;
+          console.log('Success!', downloadURL);
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      });
+    },
   
   getCurrentPosition(){
 
     },
-    },
+    
 
 //常に更新
   computed:{
@@ -173,6 +282,7 @@ export default {
   }
   },
 }
+
 </script>
 
 
