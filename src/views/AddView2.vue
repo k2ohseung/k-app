@@ -21,8 +21,9 @@
     <p><button class="btn" @click="Addlist">追加</button></p>
     <label>メニュー画像：<input ref="imgUp" type="file" id="fileImg"></label>
 
-    <!-- <button @click="imgUpload">IMGアップロード</button>
-    <button @click="removeMenu(list.id, list.menuImgFile)">データ削除</button> -->
+
+    <!-- <button @click="imgUpload">IMGアップロード</button> -->
+    <!-- <button @click="removeMenu(list.id, list.menuImgFile)">データ削除</button>  -->
     <gmap-map @click="place($event)" id="map" :zoom="19" :center="center" style="width:100%; height: 600px;" >
       <gmap-circle :center="center" :options="{ fillColor: '#0000FF', fillOpacity: 0.3, strokeWeight: 1, strokeColor: '#0000FF', radius: 25, clickable: false }" > </gmap-circle>
     </gmap-map> 
@@ -35,7 +36,7 @@
 <script>
 import {db,storage} from "@/firebase/firesbase";
 import {collection ,serverTimestamp, addDoc , onSnapshot, query, orderBy, doc } from "firebase/firestore"
-import {getDownloadURL, ref, uploadBytesResumable, deleteObject,where, getDocs,deleteDoc} from 'firebase/storage';
+import {getDownloadURL, ref, uploadBytesResumable, deleteObject,where, getDocs,deleteDoc,} from 'firebase/storage';
 
 
 export default {
@@ -53,6 +54,7 @@ export default {
   },
   data(){
     return {
+      list:[],
       id:0,
       category1:"",
       category2:"",
@@ -141,8 +143,7 @@ export default {
         //エラー時の処理
         console.log(`データ追加に失敗しました(${error})`);
       })
-    },
-    },
+    }, 
     place(event){
             if (event) {
               this.lat = event.latLng.lat()
@@ -151,6 +152,8 @@ export default {
               this.newlocation1[1]=this.lng
             }
       },
+    },
+  
   //テキスト入力してエンター押したらcategory にpushされる
   //newcategory11はテキストタグ1の変数
   // addCategory() {

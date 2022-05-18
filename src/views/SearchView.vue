@@ -7,7 +7,7 @@
         <tr>
             <th>商品名</th>
             <th>店舗名</th>
-            <th>現在地からの直線距離,時間</th>
+            <th>現在地からの距離,時間</th>
             <th>1個(m,g)あたり価格</th>
             <th>販売規格(個,m,g)</th>
             <th>販売価格</th>
@@ -29,6 +29,8 @@
 </template>
 //
 <script>
+import {db} from "@/firebase/firesbase";
+import {collection  , onSnapshot, query, orderBy, } from "firebase/firestore"
 
 
 export default {
@@ -51,6 +53,7 @@ export default {
         
   //ページ開いたときに位置情報取得
   mounted() {
+    
     if (navigator.geolocation) {  
       navigator.geolocation.getCurrentPosition(
         function(position){
@@ -60,6 +63,28 @@ export default {
         }.bind(this),
       );
     }
+    const q = query(collection(db,`list`),orderBy("id"))
+    onSnapshot(q,snapshot=>{
+      const allId=snapshot.docs.map(doc =>{
+        return doc.data().id;
+      })
+      if(allId.length>0){
+        this.id=allId.reduce((a,b)=>a>b ? a:b);
+      }
+    snapshot.docChanges().forEach(change =>{
+      if(change.type === 'added'){
+        this.list.push(change.doc.data());
+          console.log('added',change.doc.data())
+          }
+      if(change.type === 'removed') {
+          console.log('removed', change.doc.data());
+          const currentArry = this.list.filter(menu => {
+            return menu.id !== change.doc.data().id;
+          })
+          this.list = currentArry;
+        }
+    })
+  })
   },
 
 

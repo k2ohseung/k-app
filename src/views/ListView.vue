@@ -30,6 +30,8 @@
 
 <script>
 // import { defineComponent } from '@vue/composition-api'
+import {db} from "@/firebase/firesbase";
+import {collection ,   onSnapshot, query, orderBy, } from "firebase/firestore"
 
 export default {
 
@@ -48,6 +50,28 @@ data(){
       
     },
     mounted() {
+      const q = query(collection(db,`list`),orderBy("id"))
+    onSnapshot(q,snapshot=>{
+      const allId=snapshot.docs.map(doc =>{
+        return doc.data().id;
+      })
+      if(allId.length>0){
+        this.id=allId.reduce((a,b)=>a>b ? a:b);
+      }
+    snapshot.docChanges().forEach(change =>{
+      if(change.type === 'added'){
+        this.list.push(change.doc.data());
+          console.log('added',change.doc.data())
+          }
+      if(change.type === 'removed') {
+          console.log('removed', change.doc.data());
+          const currentArry = this.list.filter(menu => {
+            return menu.id !== change.doc.data().id;
+          })
+          this.list = currentArry;
+        }
+    })
+  })
     if (navigator.geolocation) {  
       navigator.geolocation.getCurrentPosition(
         function(position){
