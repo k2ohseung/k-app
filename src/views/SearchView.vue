@@ -17,8 +17,8 @@
         <tr v-for="infor2 in search_name" :key="infor2.id">
             <td>{{ infor2.name }}</td>
             <!-- <td><a target="_blank" :href='"https://www.google.com/search?q=" + (infor2.location1.lat)+"%2C"+(infor2.location1.lng)'>{{ infor2.location0 }}</a></td> -->
-            <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1.lat)+"%2C"+(infor2.location1.lng)'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
-            <td>{{distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1.lat,infor2.location1.lng)*15)}}分</td>
+            <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
+            <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
             <td>{{ infor2.infor_t1 }}</td>
             <td>{{ infor2.infor_p1 }}</td>
@@ -29,8 +29,9 @@
 </template>
 //
 <script>
-import {db} from "@/firebase/firesbase";
-import {collection  , onSnapshot, query, orderBy, } from "firebase/firestore"
+import {db, storage} from "@/firebase/firesbase";
+import {collection  , doc, onSnapshot, query, orderBy, } from "firebase/firestore"
+import {getDownloadURL, ref, uploadBytesResumable, deleteObject,where, getDocs,deleteDoc,} from 'firebase/storage';
 
 
 export default {
@@ -38,6 +39,7 @@ export default {
 
   data(){
       return {
+        list:[],
         searchName:"",
         latitude: 0,
         longitude: 0,
@@ -109,7 +111,7 @@ export default {
       return this.$store.state.infor
     },
     search_name(){
-      return this.infor.filter(infor => {
+      return this.list.filter(infor => {
         if(this.searchName.length>0)
           return infor.name.includes(this.searchName)
         })
@@ -117,6 +119,47 @@ export default {
     },
   },
   methods:{
+    async removeMenu(id, photo) {
+      //削除ボタンをクリックした商品データをfirestore内から削除
+      const delQuery = query(collection(db, 'list'), where('id', '==', id))
+      const delSnapshot = await getDocs(delQuery);
+      delSnapshot.forEach((delSnap) => {
+        // console.log(doc.id, " => ", doc.data());
+        console.log(delSnap.id);
+        deleteDoc(doc(db, 'list', delSnap.id));
+      });
+      //storage内の画像データも同時に削除
+      if(photo) {
+        const delPhotoRef = ref(storage, `images/${photo}`);
+        deleteObject(delPhotoRef).then(() => {
+          console.log("Photo deleted successfully")
+        }).catch((error) => {
+          console.log("Error Photo deleted", error)
+        });
+        // console.log('インデックス',id);
+      }
+
+    },
+    imgUpload() {
+      //ファイルの取得
+      this.file = this.$refs.imgUp.files[0];
+      //画像ファイルへの参照を作成
+      const userImageRef = ref(storage, `images/${this.file.name}`)
+      //画像ファイルのアップロードメソッド
+      uploadBytesResumable(userImageRef, this.file).then((snapshot) => {
+        console.log('Uploaded a blob or file!', snapshot);
+        getDownloadURL(snapshot.ref)
+        .then((downloadURL) => {
+          //firestoreにURLとファイル名を保存するため
+          this.menuImgUrl = downloadURL;
+          this.menuImgFile = this.file.name;
+          console.log('Success!', downloadURL);
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      });
+    },
     
   }
   }
