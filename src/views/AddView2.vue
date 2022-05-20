@@ -19,7 +19,7 @@
     値段: <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input   v-model="newinfor_t1" type="number">
     <p v-if="onoff">販売先の位置が選択されてません</p>
-    <p><button class="btn" @click="Addlist">追加</button></p>
+    <p><button class="btn" :disabled="blank" @click="Addlist">追加</button></p>
     <label>メニュー画像：<input ref="imgUp" type="file" id="fileImg"></label>
 
 
@@ -265,6 +265,9 @@ export default {
 
 //常に更新
   computed:{
+    blank(){
+      return this.lat||this.name||this.newcategory1||this.newcategory2||this.newinfor_p1||this.newinfor_t1||this.newlocation0==="" ? true : false
+    },
     onoff(){
       return this.lat === '' ? true : false
     },
