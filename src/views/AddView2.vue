@@ -18,6 +18,7 @@
     販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
     値段: <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input v-model="newinfor_t1" type="number">
+    <p v-if="onoff">販売先の位置が選択されてません</p>
     <p><button class="btn" @click="Addlist">追加</button></p>
     <label>メニュー画像：<input ref="imgUp" type="file" id="fileImg"></label>
 
@@ -54,6 +55,7 @@ export default {
   },
   data(){
     return {
+      // onoff2:true,
       list:[],
       id:0,
       category1:"",
@@ -125,6 +127,8 @@ export default {
         infor_p1:this.newinfor_p1,
         infor_t1:this.newinfor_t1,
         created: serverTimestamp(),
+        
+        
         })
       .then((doc)=>{
         console.log(`データ追加に成功しました(${doc.id})`);
@@ -258,6 +262,9 @@ export default {
 
 //常に更新
   computed:{
+    onoff(){
+      return this.lat === '' ? true : false
+    },
     infor(){
       return this.$store.state.infor
     },
