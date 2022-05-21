@@ -54,7 +54,7 @@ data(){
       
     },
     mounted() {
-      const q = query(collection(db,`list`),orderBy("id"))
+      const q = query(collection(db,`list`),orderBy("infor_p0"))
     onSnapshot(q,snapshot=>{
       const allId=snapshot.docs.map(doc =>{
         return doc.data().id;
