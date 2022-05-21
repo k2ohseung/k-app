@@ -8,9 +8,9 @@
             <th>商品名</th>
             <th>店舗名</th>
             <th>現在地からの距離,時間</th>
-            <th>1個(m,g)あたり価格</th>
+            <th>1個(m,g)あたり価格(税込)</th>
             <th>販売規格(個,m,g)</th>
-            <th>販売価格</th>
+            <th>販売価格(税込)</th>
         </tr>
       </thead>
       <tbody v-if="onoff">
