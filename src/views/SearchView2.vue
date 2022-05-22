@@ -6,11 +6,12 @@
       <thead>
         <tr>
             <th>商品名</th>
-            <th>店舗名</th>
+            <th>店に行く</th>
             <th>現在地からの距離,時間</th>
             <th>1個(m,g)あたり価格(税込)</th>
             <th>販売規格(個,m,g)</th>
             <th>販売価格(税込)</th>
+            <th>更新日</th>
         </tr>
       </thead>
       <tbody v-if="onoff">
@@ -22,6 +23,7 @@
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
             <td>{{ infor2.infor_t1 }}</td>
             <td>{{ infor2.infor_p1 }}</td>
+            <td>{{ infor2.created }}</td>
         </tr>
     </tbody>
     </table>
@@ -32,7 +34,6 @@
 import {db, storage} from "@/firebase/firesbase";
 import {collection  , doc, onSnapshot, query, orderBy, } from "firebase/firestore"
 import {getDownloadURL, ref, uploadBytesResumable, deleteObject,where, getDocs,deleteDoc,} from 'firebase/storage';
-
 
 export default {
 
@@ -91,6 +92,7 @@ export default {
 
 
   computed: {
+    
     distance() {
       // 関数の返り値に別の関数を定義し、別の関数内で引数を受け取ってあげる
       return function(lat0,lng0,lat,lng) {
@@ -108,9 +110,11 @@ export default {
       },
     
     infor(){
+      
       return this.$store.state.infor
     },
     search_name(){
+      
       return this.list.filter(infor => {
         if(this.searchName.length>0)
           return infor.name.includes(this.searchName)

@@ -16,6 +16,7 @@
         <!-- </form><br> -->
     名前: <input v-model="name" type="text"><br>
     販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
+    (店舗名まで入力したら経路検索が容易になります)<br>
     値段(税込): <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input   v-model="newinfor_t1" type="number">
     <p v-if="onoff2">入力されてない項目があります</p>
