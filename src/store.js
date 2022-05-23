@@ -8,7 +8,7 @@ const store = new Vuex.Store({
       {
         id:1,
         category1:"食材",
-        category2:"肉類",
+        category2:"その他",
         name:"",  
         location0:"",
         location1:"",
@@ -19,7 +19,18 @@ const store = new Vuex.Store({
       {
         id:2,
         category1:"日用品",
-        category2:"厨房用品",
+        category2:"その他",
+        name:"",
+        location0:"",
+        location1:"",
+        infor_p0:50,
+        infor_p1:500,
+        infor_t1:10,
+      },
+      {
+        id:3,
+        category1:"日用品",
+        category2:"キッチン用品",
         name:"",
         location0:"",
         location1:"",
@@ -27,8 +38,9 @@ const store = new Vuex.Store({
         infor_p1:1000,
         infor_t1:50,
       },
+      
       {
-        id:3,
+        id:11,
         category1:"日用品",
         category2:"洗濯洗剤",
         name:"",
@@ -39,16 +51,6 @@ const store = new Vuex.Store({
         infor_t1:10,
       },
       {
-        id:4,
-        category1:"食材",/* 大区分 */
-        category2:"魚類",/*  小区分*/
-        name:"",/* 品名 */
-        location0:"",/*販売先*/
-        location1:{ lat: 34.68926290260607, lng: 135.49135386943817},/*販売先の座標*/
-        infor_p0:22,/* 1個の値段 */
-        infor_p1:1100,/* 販売値段 */
-        infor_t1:50,/*  販売内容量*/
-      },{
         id:5,
         category1:"食材",
         category2:"調味料",
@@ -58,15 +60,26 @@ const store = new Vuex.Store({
         infor_p0:2.5,
         infor_p1:400,
         infor_t1:1000,
-      },{
-        id:6,
+      },
+      {
+        id:4,
         category1:"医薬品",
-        category2:"酔い止め",
+        category2:"その他",
         name:"",
         location0:"",
         location1: { lat: 34.683140321434365, lng: 135.46425607526396},
         infor_p0:1,
         infor_p1:300,
+        infor_t1:300,
+      },{
+        id:7,
+        category1:"医薬品",
+        category2:"痛み止め",
+        name:"",
+        location0:"",
+        location1: { lat: 34.69499521550559 , lng: 135.4862194508314},
+        infor_p0:400/300,
+        infor_p1:400,
         infor_t1:300,
       },
       {
@@ -106,6 +119,17 @@ const store = new Vuex.Store({
         id:10,
         category1:"その他",
         category2:"その他",
+        name:"",  
+        location0:"",
+        location1:"",
+        infor_p0:"1",
+        infor_p1:"300",
+        infor_t1:"1",
+      },
+      {
+        id:10,
+        category1:"食材",
+        category2:"魚類",
         name:"",  
         location0:"",
         location1:"",

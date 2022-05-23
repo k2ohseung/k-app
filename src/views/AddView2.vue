@@ -300,7 +300,8 @@ export default {
   },
     category2List() {
       const result = this.infor.map((item) => {
-      return item.category2
+        if(this.newcategory1===item.category1){
+      return item.category2}
     })
       return new Set(result)
   }
