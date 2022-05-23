@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1> Search Page </h1>
+    <h3> Search Page </h3>
+    <hr>
+      <div class="reff"><li>商品名で検索できます</li>
+    <li>近いところから表示されます</li>
+    <li>距離は直線距離なので多少は誤差があります</li>
+      </div>
+    <hr>
     <input type="text" v-model="searchName">
         <table >
       <thead>
@@ -20,9 +26,9 @@
             <!-- <td><a target="_blank" :href='"https://www.google.com/search?q=" + (infor2.location1.lat)+"%2C"+(infor2.location1.lng)'>{{ infor2.location0 }}</a></td> -->
             <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
             <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
-            <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
+            <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}} 円</td>
             <td>{{ infor2.infor_t1 }}</td>
-            <td>{{ infor2.infor_p1 }}</td>
+            <td>{{ infor2.infor_p1 }} 円</td>
             <td>{{ infor2.written.toDate().toLocaleString() }}</td>
         </tr>
     </tbody>
@@ -77,7 +83,7 @@ export default {
     snapshot.docChanges().forEach(change =>{
       if(change.type === 'added'){
         this.list.push(change.doc.data());
-          console.log('added',change.doc.data())
+          // console.log('added',change.doc.data())
           }
       if(change.type === 'removed') {
           console.log('removed', change.doc.data());
@@ -185,6 +191,10 @@ table{
         color:white;
         background-color: #1E90FF;
     }
+.reff{
+  
+  
+}
 </style>
 
 

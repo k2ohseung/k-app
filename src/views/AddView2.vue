@@ -1,6 +1,10 @@
 <template>  
   <div>
-    <h1>add page</h1>
+    <h3><p>Add page </p>  </h3>
+    <hr>
+      <li>全部入力する必要があります。<br>(入力が漏れてる場合は追加ができません)</li>
+      <li>位置追加は地図で左クリックしたら入力されます
+      <br><strong>"販売先の位置が選択されてません"</strong> がなくなったらOK</li>
     <hr>
     分類 : <select v-model="newcategory1">
       <option v-for="cat1 in category1List" :key="cat1" :value="cat1">{{ cat1 }}</option>
@@ -93,7 +97,7 @@ export default {
     snapshot.docChanges().forEach(change =>{
       if(change.type === 'added'){
         this.list.push(change.doc.data());
-          console.log('added',change.doc.data())
+          // console.log('added',change.doc.data())
           }
       if(change.type === 'removed') {
           console.log('removed', change.doc.data());

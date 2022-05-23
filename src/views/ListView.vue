@@ -64,7 +64,7 @@ data(){
     snapshot.docChanges().forEach(change =>{
       if(change.type === 'added'){
         this.list.push(change.doc.data());
-          console.log('added',change.doc.data())
+          // console.log('added',change.doc.data())
           }
       if(change.type === 'removed') {
           console.log('removed', change.doc.data());
