@@ -127,7 +127,7 @@ export default {
         infor_p0:this.newinfor_p1/this.newinfor_t1,
         infor_p1:this.newinfor_p1,
         infor_t1:this.newinfor_t1,
-        created: serverTimestamp(),
+        written: serverTimestamp(),
         
         
         })

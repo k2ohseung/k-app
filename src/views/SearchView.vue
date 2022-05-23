@@ -23,7 +23,7 @@
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
             <td>{{ infor2.infor_t1 }}</td>
             <td>{{ infor2.infor_p1 }}</td>
-            <td>{{ infor2.created.toDate() }}</td>
+            <td>{{ infor2.written.toDate().toLocaleString() }}</td>
         </tr>
     </tbody>
     </table>
