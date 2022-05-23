@@ -4,7 +4,7 @@
     <hr>
       <li>全部入力する必要があります。<br>(入力が漏れてる場合は追加ができません)</li>
       <li>位置追加は地図で左クリックしたら入力されます
-      <br><strong>"販売先の位置が選択されてません"</strong> がなくなったらOK</li>
+      <br>(<strong>"販売先の位置が選択されてません"</strong> がなくなったらOK)</li>
     <hr>
     分類 : <select v-model="newcategory1">
       <option v-for="cat1 in category1List" :key="cat1" :value="cat1">{{ cat1 }}</option>
@@ -24,7 +24,7 @@
     値段(税込): <input v-model="newinfor_p1" type="number">円 <br>
     内容量: <input   v-model="newinfor_t1" type="number">
     <p v-if="onoff2">入力されてない項目があります</p>
-    <p v-if="onoff">販売先の位置が選択されてません</p>
+    <strong style=color:red;><p v-if="onoff">販売先の位置が選択されてません</p></strong>
     <p><button class="btn" :disabled="blank" @click="Addlist">追加</button></p>
     <!-- <label>メニュー画像：<input ref="imgUp" type="file" id="fileImg"></label> -->
 
@@ -296,15 +296,19 @@ export default {
       return item.category1
     })
     //重複データを消す
+      
       return new Set(result)
   },
     category2List() {
-      const result = this.infor.map((item) => {
-        if(this.newcategory1===item.category1){
-      return item.category2}
+      
+      let result = this.infor.map((item) => {
+        if(this.newcategory1===item.category1 ){
+      return item.category2 }
     })
-      return new Set(result)
-  }
+    let result2=new Set(result)
+    result2.delete(undefined)
+        return result2
+  },
   },
 }
 
