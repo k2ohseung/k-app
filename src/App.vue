@@ -7,6 +7,7 @@
       <router-link to="/search">Search</router-link> |
       <router-link to="/test">search test</router-link> |
       <router-link to="/list">List</router-link> |
+      <router-link to="/etc">Game</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
     <router-view/>
