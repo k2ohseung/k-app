@@ -3,11 +3,11 @@
     <h1>{{result}}</h1>
 
     <input ref="answer" minlength="4" maxlength="4" v-model="value">
-    <button @click="onSubmitForm">入力</button>
+    <button  @click="numbercheck">入力</button>
 
     <div>試み:{{tries.length}}</div>
     <ul>
-      <li v-for="t in tries" :key="t">
+      <li v-for="t in tries" :key="t.index">
       <div>{{t.try}}</div>
       <div>{{t.result}}</div></li>
     </ul>
@@ -22,8 +22,8 @@ const getNumbers=()=>{
   for(let i=0; i<4; i+=1){
     const chosen=cadidates.splice(Math.floor(Math.random()*(9-i)),1)[0];
     array.push(chosen);
-    }
-}
+    }return array;
+};
 export default { 
   data(){
     return {
@@ -31,24 +31,36 @@ export default {
       tries:[],
       value:"",
       result:"",
+      
     }
   },
   methods:{
-    onSubmitForm(){
-      if(this.value===this.answer.join("")){
+    
+    numbercheck(){
+      if(this.value===this.answer.join("")){   //answerは配列の値、joinを使って文字列に変換
         this.tries.push({
           try:this.value,
-          result:"homerun"
+          result:"ホームラン"
         });
-        this.result="homerun";
-        alert("新しいゲームを始めます");
+        this.result="ホームラン";
+        alert("正解！新しいゲームを始めます");
         this.tries=[];
         this.value="";
+        this.answer=getNumbers();
         this.$refs.answer.focus();
       }else{
+        if(this.tries.length>=9){
+          this.result=``;
+          alert(`10回 間違いましたので失敗！答えは ${this.answer.join(',')}でした。`);
+          alert("新しいゲームを始めます。");
+          this.tries=[];
+          this.answer=getNumbers();
+          this.value="";
+          this.$refs.answer.focus();
+        }
         let strike=0;
         let ball=0;
-        const answerArray=this.value.splice("").map(v=>parseInt(v));    //文字列を数字に変えるコード
+        const answerArray=this.value.split('').map(v=>parseInt(v));    //文字列を分離して配列に変えるコード
         for(let i=0; i<4; i+=1){
           if(answerArray[i]===this.answer[i]){ //数字の桁まであった場合
             strike++;
