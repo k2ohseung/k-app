@@ -2,9 +2,9 @@
   <div id="app">
     <nav>
       <!-- <router-link to="/">Home</router-link> | -->
-      <router-link to="/addlist">Addlist</router-link> |
-      <router-link to="/test2">add testpage</router-link> |
       <router-link to="/search">Search</router-link> |
+      <router-link to="/addlist">Addlist</router-link> |
+      <!-- <router-link to="/test2">add testpage</router-link> | -->
       <!-- <router-link to="/test">search test</router-link> | -->
       <router-link to="/list">List</router-link> |
       <router-link to="/etc">Game</router-link> |
@@ -19,7 +19,7 @@
 
 export default {
 
-  
+
 
 
 }
