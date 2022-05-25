@@ -9,7 +9,7 @@
         <li>ex2)正解:3548 答え:5219=> 1ボール(5が数字は一致するが、桁が違う)</li>
       </ul>
     <form @submit.prevent="numbercheck">
-    <input ref="answer" minlength="4" maxlength="4" v-model="value">
+    <input ref="answer"  minlength="4" maxlength="4" v-model="value">
     <button :disabled="four">入力</button>
         </form>
     <div>試み:{{tries.length}}</div>
@@ -68,10 +68,10 @@ export default {
           this.answer=getNumbers();
           this.value="";
           this.tries=[];
-          this.tries.delete(undefined);
+          // this.tries.delete(undefined);
           // console.log(this.tries);
           this.$refs.answer.focus();
-        }
+        }else{
         let strike=0;
         let ball=0;
         const answerArray=this.value.split('').map(v=>parseInt(v));    //文字列を分離して配列に変えるコード
@@ -86,8 +86,9 @@ export default {
           try:this.value,
           result:`${strike} ストライク,${ball} ボールです`})
       this.value="",
+      console.log(this.tries.length)
       this.$refs.answer.focus();
-            }
+            }}
     }
   }
 }
