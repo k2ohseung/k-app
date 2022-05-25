@@ -1,6 +1,6 @@
 <template>
   <div>
-      <ul>
+      <ul class="nodock">
         <li>任意の数字４桁が自動に決まります(<strong style=color:red>数字は重複されてない</strong>)</li>
         <li>数字と桁が一致した場合=>ストライク</li>
         <li>数字は一致するが、桁が間違ってる場合=>ボール</li>
@@ -68,6 +68,8 @@ export default {
           this.answer=getNumbers();
           this.value="";
           this.tries=[];
+          this.tries.delete(undefined);
+          // console.log(this.tries);
           this.$refs.answer.focus();
         }
         let strike=0;
@@ -92,5 +94,7 @@ export default {
 </script>
 
 <style>
-
+.nodock{
+    list-style:none;
+}
 </style>
