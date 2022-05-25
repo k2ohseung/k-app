@@ -86,7 +86,6 @@ export default {
           try:this.value,
           result:`${strike} ストライク,${ball} ボールです`})
       this.value="",
-      console.log(this.tries.length)
       this.$refs.answer.focus();
             }}
     }
