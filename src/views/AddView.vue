@@ -273,12 +273,8 @@ export default {
 
 //常に更新
   computed:{
-    // onoff3(){
-    //   return this.onoff2==false? true:false
-    // },
     onoff2(){
             return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t1===""||this.newlocation0===""? true : false
-
     },
     blank(){
       return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t1===""||this.newlocation0===""||this.lat==="" ? true : false
@@ -297,7 +293,7 @@ export default {
     },
   //store のinforから抽出してcategory1を取り出す
     category1List() {
-      const result = this.infor.map((item) => {
+      const result = this.list.map((item) => {
       return item.category1
     })
     //重複データを消す
@@ -306,7 +302,7 @@ export default {
   },
     category2List() {
       
-      let result = this.infor.map((item) => {
+      let result = this.list.map((item) => {
         if(this.newcategory1===item.category1 ){
       return item.category2 }
     })
