@@ -1,10 +1,17 @@
 <template>
   <div>
-    <h1>{{result}}</h1>
-
+      <ul>
+        <li>任意の数字４桁が自動に決まります(<strong style=color:red>数字は重複されてない</strong>)</li>
+        <li>数字と桁が一致した場合=>ストライク</li>
+        <li>数字は一致するが、桁が間違ってる場合=>ボール</li>
+        <li>10回以内に４桁の数字を当てる</li>
+        <li>ex1)正解:3548 答え:3219=> 1ストライク(3が数字と、桁が一致)</li>
+        <li>ex2)正解:3548 答え:5219=> 1ボール(5が数字は一致するが、桁が違う)</li>
+      </ul>
+    <form @submit.prevent="numbercheck">
     <input ref="answer" minlength="4" maxlength="4" v-model="value">
-    <button  @click="numbercheck">入力</button>
-
+    <button :disabled="four">入力</button>
+        </form>
     <div>試み:{{tries.length}}</div>
     <ul>
       <li v-for="t in tries" :key="t.index">
@@ -34,6 +41,11 @@ export default {
       
     }
   },
+  computed:{
+      four(){
+        return this.value.length>0 ?false:true
+      }
+  },
   methods:{
     
     numbercheck(){
@@ -51,11 +63,11 @@ export default {
       }else{
         if(this.tries.length>=9){
           this.result=``;
-          alert(`10回 間違いましたので失敗！答えは ${this.answer.join(',')}でした。`);
+          alert(`10回 間違いましたので失敗！答えは ${this.answer.join('')}でした。`);
           alert("新しいゲームを始めます。");
-          this.tries=[];
           this.answer=getNumbers();
           this.value="";
+          this.tries=[];
           this.$refs.answer.focus();
         }
         let strike=0;
