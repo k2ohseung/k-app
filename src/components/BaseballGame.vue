@@ -1,12 +1,12 @@
 <template>
   <div>
       <ul class="nodock">
-        <li>任意の数字４桁が自動に決まります(<strong style=color:red>数字は重複されてない</strong>)</li>
+        <li>任意の数字4桁が自動に決まります(<strong style=color:red>数字は重複されてない</strong>)</li>
         <li>数字と桁が一致した場合=>ストライク</li>
         <li>数字は一致するが、桁が間違ってる場合=>ボール</li>
-        <li>10回以内に４桁の数字を当てる</li>
-        <li>ex1)正解:3548 答え:3219=> 1ストライク(3が数字と、桁が一致)</li>
-        <li>ex2)正解:3548 答え:5219=> 1ボール(5が数字は一致するが、桁が違う)</li>
+        <li>10回以内に4桁の数字を当てる</li>
+        <li>例1)正解:3548 答え:3219=> 1ストライク(3が数字と、桁が一致)</li>
+        <li>例2)正解:3548 答え:5219=> 1ボール(5が数字は一致するが、桁が違う)</li>
       </ul>
     <form @submit.prevent="numbercheck">
     <input ref="answer"  minlength="4" maxlength="4" v-model="value">
