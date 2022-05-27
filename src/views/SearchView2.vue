@@ -43,12 +43,12 @@
           <tr>{{infor2.name}}</tr></th>
     </table>
     <table>
-      <th>店に行く(座標検索)</th>
+      <th>店に行く(正確度中)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  </tr></th> 
     </table>
     <table>
-      <th>店に行く(店名検索)</th>
+      <th>店に行く(正確度高)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></tr></th> 
     </table>
