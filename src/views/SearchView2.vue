@@ -8,77 +8,54 @@
       </div>
     <hr>
     <input type="text" v-model="searchName">
-        <!-- <table >
-      <thead>
-        <tr>
-            <th>商品名</th>
-            <th>店に行く</th>
-            <th>現在地からの距離,時間</th>
-            <th>1個(m,g)あたり価格(税込)</th>
-            <th>販売規格(個,m,g)</th>
-            <th>販売価格(税込)</th> 
-            <th>更新日</th>
-        </tr>
-      </thead>
-      <tbody v-if="onoff">
-        <tr v-for="infor2 in search_name" :key="infor2.id">
-            <td>{{ infor2.name }}</td>
-            <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
-            <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
-            <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}} 円</td>
-            <td>{{ infor2.infor_t1 }}</td>
-            <td>{{ infor2.infor_p1 }} 円</td>
-            <td>{{ infor2.written.toDate().toLocaleString() }}</td>
-        </tr>
-    </tbody>
-    </table> -->
     <div>
-    <table>
-      <th>近い順</th>
+      <!-- 現在地からデータまでの距離を算出するコード必要 -->
+    <!-- <table>
+      <th class="blues">近い順</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{index+1}}</tr></th> 
-    </table>
-    <table><th>商品名</th>
+    </table> -->
+    <table><th class="blues">商品名</th>
           <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{infor2.name}}</tr></th>
     </table>
     <table>
-      <th>店に行く(正確度中)</th>
+      <th class="blues">店に行く(正確度 <strong style=color:red>中</strong>)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  </tr></th> 
     </table>
     <table>
-      <th>店に行く(正確度高)</th>
+      <th class="blues">店に行く(正確度 <strong style=color:red>高</strong>)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></tr></th> 
     </table>
     <table>
-      <th>現在地からの距離</th>
+      <th class="blues">現在地からの距離</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>約{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km</tr></th> 
     </table>
     <table>
-      <th>現在地から徒歩でかかる時間</th>
+      <th class="blues">現在地からの徒歩</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</tr></th> 
     </table>
     <table>
-      <th>1個(m,g)あたり価格(税込)</th>
+      <th class="blues">1個(m,g)あたり価格(税込)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}} 円</tr></th> 
     </table>
     <table>
-      <th>販売規格(個,m,g)</th>
+      <th class="blues">販売規格(個,m,g)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{ infor2.infor_t1 }}</tr></th> 
     </table>
     <table>
-      <th>販売価格(税込)</th>
+      <th class="blues">販売価格(税込)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{ infor2.infor_p1 }} 円</tr></th> 
     </table>
     <table>
-      <th>更新日</th>
+      <th class="blues">更新日</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{ infor2.written.toDate().toLocaleString() }}</tr></th> 
     </table>
@@ -228,19 +205,18 @@ export default {
 
 
 <style scoped>
-table{
-  table-layout: fixed;
-   width: 100%;
-        border-collapse: collapse;
-        width:100%;
-        border:1;
+  table{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border:1;
     }
     td, th {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
     }
-    th {
+    .blues{
         color:white;
         background-color: #1E90FF;
     }

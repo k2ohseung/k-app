@@ -134,6 +134,8 @@ export default {
         infor_p1:this.newinfor_p1,
         infor_t1:this.newinfor_t1,
         written: serverTimestamp(),
+        
+        
         })
       .then((doc)=>{
         console.log(`データ追加に成功しました(${doc.id})`);
@@ -142,12 +144,8 @@ export default {
         this.newcategory1="";
         this.newcategory2="";
         this.newlocation0="";
-        this.newlocation1="";
         this.newinfor_p1="";
         this.newinfor_t1="";
-        this.newlocation1
-        this.lat="";
-        this.lng="";
         
       })
       .catch(error => {
