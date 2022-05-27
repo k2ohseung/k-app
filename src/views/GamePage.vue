@@ -1,7 +1,7 @@
 <template>
   <div>
     <ol>
-      <li><a href="https://konishi-k.netlify.app/baseball">数字野球</a></li>
+      <li><a ref="https://konishi-k.netlify.app/baseball">数字野球</a></li>
     </ol>
     
   </div>
