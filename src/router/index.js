@@ -37,9 +37,14 @@ const routes = [
     component: () => import('../views/ListView.vue')
   },
   {
-    path: '/ETC',
+    path: '/baseball',
     name: 'etc',
     component: () => import('../components/BaseballGame.vue')
+  },
+  {
+    path: '/etc',
+    name: 'etc',
+    component: () => import('../views/GamePage.vue')
   },
 
   {
