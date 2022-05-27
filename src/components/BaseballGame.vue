@@ -9,7 +9,7 @@
         <li>例2)正解:3548   入力値:5219=> 1ボール(5が数字は一致するが、桁が違う)</li>
       </ul>
     <form @submit.prevent="numbercheck">
-    <input ref="answer"  minlength="4" maxlength="4" v-model="value">
+    <input ref="answer"   minlength="4" maxlength="4" v-model="value">
     <button :disabled="four">入力</button>
         </form>
     <div>試み:{{tries.length}}</div>
@@ -24,7 +24,7 @@
 <script>
 
 const getNumbers=()=>{
-  const cadidates=[1,2,3,4,5,6,7,8,9];
+  const cadidates=[0,1,2,3,4,5,6,7,8,9];
   const array=[];
   for(let i=0; i<4; i+=1){
     const chosen=cadidates.splice(Math.floor(Math.random()*(9-i)),1)[0];
@@ -43,7 +43,7 @@ export default {
   },
   computed:{
       four(){
-        return this.value.length>0 ?false:true
+        return this.value.length>0 ?false:true 
       }
   },
   methods:{
@@ -96,5 +96,9 @@ export default {
 <style>
 .nodock{
     list-style:none;
+}
+input{
+  size:100;
+  
 }
 </style>
