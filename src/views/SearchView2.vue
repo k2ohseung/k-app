@@ -238,18 +238,10 @@ table{
         text-align: left;
         padding: 8px;
     }
-    /* th {
+    th {
         color:white;
         background-color: #1E90FF;
-    } */
-.tateni{
-  display: flex;
-  flex-direction: column ;
-}
-.yokoni{
-  display: flex;
-  flex-direction: row;
-}
+    }
 </style>
 
 
