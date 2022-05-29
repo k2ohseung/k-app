@@ -19,15 +19,22 @@
           <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{infor2.name}}</tr></th>
     </table>
+    
+    
     <table>
-      <th class="blues">店に行く(正確度 <strong style=color:red>中</strong>)</th>
+      <th class="blues">1個(m,g)あたり価格(税込)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  </tr></th> 
+          <tr>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}} 円</tr></th> 
     </table>
     <table>
-      <th class="blues">店に行く(正確度 <strong style=color:red>高</strong>)</th>
+      <th class="blues">販売規格(個,m,g,ml)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></tr></th> 
+          <tr>{{ infor2.infor_t1 }}(個,m,g,ml)</tr></th> 
+    </table>
+    <table>
+      <th class="blues">販売価格(税込)</th>
+      <th v-for="(infor2,index) in search_name" :key="index">
+          <tr>{{ infor2.infor_p1 }} 円</tr></th> 
     </table>
     <table>
       <th class="blues">現在地からの距離</th>
@@ -40,19 +47,14 @@
           <tr>約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</tr></th> 
     </table>
     <table>
-      <th class="blues">1個(m,g)あたり価格(税込)</th>
+      <th class="blues">店に行く(正確度 <strong style=color:red>中</strong>)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}} 円</tr></th> 
+          <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  </tr></th> 
     </table>
     <table>
-      <th class="blues">販売規格(個,m,g)</th>
+      <th class="blues">店に行く(正確度 <strong style=color:red>高</strong>)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>{{ infor2.infor_t1 }}</tr></th> 
-    </table>
-    <table>
-      <th class="blues">販売価格(税込)</th>
-      <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>{{ infor2.infor_p1 }} 円</tr></th> 
+          <tr><a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></tr></th> 
     </table>
     <table>
       <th class="blues">更新日</th>
