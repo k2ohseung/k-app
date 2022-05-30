@@ -8,14 +8,14 @@
       </div>
     <hr>
     商品名:<input type="text" v-model="searchName">
-    <!-- <button @click="prices">値段順で表示</button><button @click="distances">距離順で表示</button> -->
+    <button @click="prices">値段順で表示</button><button @click="distances">距離順で表示</button>
     <div>
       <!-- 現在地からデータまでの距離を算出するコード必要 -->
-    <!-- <table>
-      <th class="blues">近い順</th>
+    <table>
+      <th class="blues">順番</th>
       <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{index+1}}</tr></th> 
-    </table> -->
+    </table>
     <table><th class="blues">商品名</th>
           <th v-for="(infor2,index) in search_name" :key="index">
           <tr>{{infor2.name}}</tr></th>
@@ -157,6 +157,19 @@ export default {
         })
       
     },
+    testSearchName() {
+      let result = []
+      this.search_name.forEach((item) => {
+        item.distance = this.distance(this.latitude,this.longitude,item.location1[0],item.location1[1]).toFixed(2)
+        result.push(item)
+      })
+      // console.log(result)
+      let result2 = result.sort(function(a, b) {
+      return (a.distance > b.distance) ? -1 : 1;  
+      });
+        console.log(result2);
+      return result2
+    }
   },
   methods:{
     prices(){
