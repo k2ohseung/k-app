@@ -9,20 +9,20 @@
     分類 : <select v-model="newcategory1">
       <option v-for="cat1 in category1List" :key="cat1" :value="cat1">{{ cat1 }}</option>
       </select><br>
-      <!-- <form @submit.prevent="addCategory()"> -->
         <input type="text" :disabled="etc1" v-model="newcategory11"><br>
-      <!-- </form> -->
     種類 : <select v-model="newcategory2"><br>
       <option v-for="cat2 in category2List" :key="cat2" :value="cat2">{{ cat2 }}</option>
         </select><br>
-        <!-- <form @submit.prevent="addCategory2()"> -->
-        <input type="text" :disabled="etc2" v-model="newcategory22"><br>
-        <!-- </form><br> -->
+    単位 : <select v-model="newcategory3"><br>
+      <option v-for="cat3 in category3List" :key="cat3" :value="cat3">{{ cat3 }}</option>
+        </select><br>
+        <input type="text" :disabled="etc3" v-model="newcategory33"><br>
     名前: <input v-model="name" type="text"><br>
     販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
     (店舗名まで入力したら経路検索が容易になります)<br>
     値段(税込): <input v-model="newinfor_p1" type="number">円 <br>
-    内容量: <input   v-model="newinfor_t1" type="number">
+    販売規格: <input   v-model="newinfor_t11" type="number">入り*
+    <input   v-model="newinfor_t12" type="number">
     <p v-if="onoff2">入力されてない項目があります</p>
     <strong style=color:red;><p v-if="onoff">販売先の位置が選択されてません</p></strong>
       <p v-if="onoff==false">販売先の位置が選択されました</p>
@@ -79,8 +79,11 @@ export default {
       newcategory11: '',
       newcategory2: '',
       newcategory22: '',
+      newcategory3: '',
+      newcategory33: '',
       newinfor_p1:"",
-      newinfor_t1:"",
+      newinfor_t11:"",
+      newinfor_t12:"",
       lat:"",
       lng:"",
       newlocation1:[this.lat,this.lng],
@@ -127,12 +130,14 @@ export default {
         id:this.id+=1,
         category1:this.newcategory1,
         category2:this.newcategory2,
+        category3:this.newcategory3,
         name:this.name,
         location0:this.newlocation0,
         location1:this.newlocation1,
-        infor_p0:this.newinfor_p1/this.newinfor_t1,
+        infor_p0:this.newinfor_p1/(this.newinfor_t11*this.newinfor_t12),
         infor_p1:this.newinfor_p1,
-        infor_t1:this.newinfor_t1,
+        infor_t11:this.newinfor_t11,
+        infor_t12:this.newinfor_t12,
         written: serverTimestamp(),
         
         
@@ -145,7 +150,8 @@ export default {
         this.newcategory2="";
         this.newlocation0="";
         this.newinfor_p1="";
-        this.newinfor_t1="";
+        this.newinfor_t11="";
+        this.newinfor_t12="";
         
       })
       .catch(error => {
@@ -270,10 +276,10 @@ export default {
 //常に更新
   computed:{
     onoff2(){
-            return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t1===""||this.newlocation0===""? true : false
+            return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t11===""||this.newinfor_t12===""||this.newlocation0===""? true : false
     },
     blank(){
-      return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t1===""||this.newlocation0===""||this.lat==="" ? true : false
+      return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t11===""||""||this.newinfor_t12===""||this.newlocation0===""||this.lat==="" ? true : false
     },
     onoff(){
       return this.lat === '' ? true : false
@@ -305,6 +311,15 @@ export default {
     let result2=new Set(result)
     result2.delete(undefined)
         return result2
+  },
+  category3List() {
+      
+      let result = this.list.map((item) => {
+      return item.category3 
+    })
+    let result3=new Set(result)
+    result3.delete(undefined)
+        return result3
   },
   },
 }

@@ -20,7 +20,7 @@
             <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
             <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
-            <td>{{ infor2.infor_t1 }}</td>
+            <td>{{ infor2.infor_t11 }}入り*{{ infor2.infor_t12 }}({{ infor2.category3 }})</td>
             <td>{{ infor2.infor_p1 }}円</td>
         </tr>
     </tbody>

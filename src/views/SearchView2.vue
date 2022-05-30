@@ -29,7 +29,7 @@
     <table>
       <th class="blues">販売規格(個,m,g,ml)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>{{ infor2.infor_t1 }}(個,m,g,ml)</tr></th> 
+          <tr>{{ infor2.infor_t11 }}入り*{{ infor2.infor_t12 }}({{ infor2.category3 }})</tr></th> 
     </table>
     <table>
       <th class="blues">販売価格(税込)</th>
@@ -207,19 +207,12 @@ export default {
 
 
 <style scoped>
-<<<<<<< HEAD
-table{
-  table-layout: fixed;
-        border-collapse: collapse;
-        width:100%;
-        border:1;
-=======
   table{
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
     border:1;
->>>>>>> 739821559885a67f9274459b8119c171ac47fdfc
+    word-break:break-all
     }
     td, th {
         border: 1px solid #dddddd;
