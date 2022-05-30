@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: '/baseball',
-    name: 'etc',
+    name: 'baseball',
     component: () => import('../components/BaseballGame.vue')
   },
   {

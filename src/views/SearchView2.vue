@@ -7,7 +7,7 @@
     <li>距離は直線距離なので多少は誤差があります</li>
       </div>
     <hr>
-    <input type="text" v-model="searchName">
+    商品名:<input type="text" v-model="searchName">
     <div>
       <!-- 現在地からデータまでの距離を算出するコード必要 -->
     <!-- <table>
@@ -29,7 +29,7 @@
     <table>
       <th class="blues">販売規格(個,m,g,ml)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>{{ infor2.infor_t11 }}    入り   *  {{ infor2.infor_t12 }}  ({{ infor2.category3 }})</tr></th> 
+          <tr>{{ infor2.infor_t11 }}       *  {{ infor2.infor_t12 }}  ({{ infor2.category3 }})</tr></th> 
     </table>
     <table>
       <th class="blues">販売価格(税込)</th>
