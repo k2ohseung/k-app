@@ -13,10 +13,11 @@
     種類 : <select v-model="newcategory2"><br>
       <option v-for="cat2 in category2List" :key="cat2" :value="cat2">{{ cat2 }}</option>
         </select><br>
+        <input type="text" :disabled="etc2" v-model="newcategory22"><br>
     単位 : <select v-model="newcategory3"><br>
       <option v-for="cat3 in category3List" :key="cat3" :value="cat3">{{ cat3 }}</option>
         </select><br>
-        <input type="text" :disabled="etc3" v-model="newcategory33"><br>
+        
     名前: <input v-model="name" type="text"><br>
     販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
     (店舗名まで入力したら経路検索が容易になります)<br>
@@ -148,6 +149,7 @@ export default {
         this.name="";
         this.newcategory1="";
         this.newcategory2="";
+        this.newcategory3="";
         this.newlocation0="";
         this.newinfor_p1="";
         this.newinfor_t11="";
@@ -313,7 +315,6 @@ export default {
         return result2
   },
   category3List() {
-      
       let result = this.list.map((item) => {
       return item.category3 
     })
