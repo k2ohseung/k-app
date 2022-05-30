@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody v-if="true">
-        <tr v-for="infor2 in list" :key="infor2.id">
+        <tr v-for="infor2 in list" :key="infor2.id" v-bind:class="[infor2.id == 0 ? 'off' : 'on']">
             <td>{{ infor2.name }}</td>
             <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
             <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
@@ -49,6 +49,7 @@ data(){
         times:"",
         infor_p0:"",
         filter:null,
+        result1:"",
       }
       
     },
@@ -92,7 +93,7 @@ data(){
         let disx=lat0-lat;
         let disy=lng0-lng;
       let result1=Math.sqrt(Math.abs(disx*disx) + Math.abs(disy*disy))*100;
-      return result1
+      return this.result1=result1
       }
     },
     onoff(){
@@ -163,17 +164,21 @@ data(){
 
 <style scoped>
 
-table{
+  table{
         border-collapse: collapse;
         width:100%
     }
-    td, th {
+  td, th {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
     }
-    th {
+  th {
         color:white;
         background-color: #1E90FF;
+    }
+  .off{
+      display: none;
+
     }
 </style>

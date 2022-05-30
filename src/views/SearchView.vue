@@ -3,11 +3,12 @@
     <h3> Search Page </h3>
     <hr>
       <div class="reff"><li>商品名で検索できます</li>
-    <li>近いところから表示されます</li>
+    <li>安い順番でから表示されます</li>
     <li>距離は直線距離なので多少は誤差があります</li>
       </div>
     <hr>
     商品名:<input type="text" v-model="searchName">
+    <!-- <button @click="prices">値段順で表示</button><button @click="distances">距離順で表示</button> -->
     <div>
       <!-- 現在地からデータまでの距離を算出するコード必要 -->
     <!-- <table>
@@ -158,6 +159,12 @@ export default {
     },
   },
   methods:{
+    prices(){
+      return
+    },
+    distances(){
+      return
+    },
     async removeMenu(id, photo) {
       //削除ボタンをクリックした商品データをfirestore内から削除
       const delQuery = query(collection(db, 'list'), where('id', '==', id))
