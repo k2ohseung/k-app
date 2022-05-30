@@ -144,12 +144,8 @@ export default {
         this.newcategory1="";
         this.newcategory2="";
         this.newlocation0="";
-        this.newlocation1="";
         this.newinfor_p1="";
         this.newinfor_t1="";
-        this.newlocation1
-        this.lat="";
-        this.lng="";
         
       })
       .catch(error => {
