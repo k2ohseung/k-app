@@ -9,8 +9,8 @@
         <li>例2)正解:3548   入力値:5219=> 1ボール(5が数字は一致するが、桁が違う)</li>
       </ul>
     <form @submit.prevent="numbercheck">
-    <input ref="answer"   minlength="4" maxlength="4" v-model="value">
-    <button :disabled="four">入力</button>
+    <input ref="answer"     minlength="4" maxlength="4" v-model="value">
+    <button :disabled="four">入力</button>(半角の数字のみ)
         </form>
     <div>試み:{{tries.length}}</div>
     <ul>
@@ -43,7 +43,7 @@ export default {
   },
   computed:{
       four(){
-        return this.value.length>0 ?false:true 
+        return this.value.length==4 && this.value.match(/[0-9]+/g) ==this.value ? false:true 
       }
   },
   methods:{
