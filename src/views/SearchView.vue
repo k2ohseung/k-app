@@ -29,7 +29,7 @@
     <table>
       <th class="blues">販売規格(個,m,g,ml)</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>{{ infor2.infor_t11 }}入り*{{ infor2.infor_t12 }}({{ infor2.category3 }})</tr></th> 
+          <tr>{{ infor2.infor_t11 }}    入り   *  {{ infor2.infor_t12 }}  ({{ infor2.category3 }})</tr></th> 
     </table>
     <table>
       <th class="blues">販売価格(税込)</th>
@@ -39,12 +39,12 @@
     <table>
       <th class="blues">現在地からの距離</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>約{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km</tr></th> 
+          <tr>約  {{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km</tr></th> 
     </table>
     <table>
       <th class="blues">現在地からの徒歩</th>
       <th v-for="(infor2,index) in search_name" :key="index">
-          <tr>約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</tr></th> 
+          <tr>約  {{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</tr></th> 
     </table>
     <table>
       <th class="blues">店に行く(正確度 <strong style=color:red>中</strong>)</th>
