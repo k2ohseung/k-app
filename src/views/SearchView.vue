@@ -8,7 +8,7 @@
       </div>
     <hr>
     商品名:<input type="text" v-model="searchName">
-    <button @click="prices">値段順で表示</button><button @click="distances">距離順で表示</button>
+    <!-- <button @click="prices">値段順で表示</button><button @click="distances">距離順で表示</button> -->
     <div>
       <!-- 現在地からデータまでの距離を算出するコード必要 -->
     <table>
