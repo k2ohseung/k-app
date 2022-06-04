@@ -131,6 +131,7 @@ export default {
         // category1:this.newcategory1,
         // category2:this.newcategory2,
         category3:this.newcategory3,
+        category33:this.newcategory33,
         name:this.name,
         location0:this.newlocation0,
         location1:this.newlocation1,
@@ -148,7 +149,8 @@ export default {
         this.name="";
         // this.newcategory1="";
         // this.newcategory2="";
-        this.newlocation0="";
+        // this.newlocation0="";
+        this.newcategory3="";
         this.newinfor_p1="";
         this.newinfor_t11="";
         this.newinfor_t12="";
@@ -292,6 +294,9 @@ export default {
     },
     etc2() {
     return this.newcategory2 === 'その他' ? false : true
+    },
+    etc3() {
+    return this.newcategory3 === 'その他' ? false : true
     },
   //store のinforから抽出してcategory1を取り出す
   //   category1List() {
