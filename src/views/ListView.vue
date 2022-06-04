@@ -6,6 +6,7 @@
         <table >
       <thead>
         <tr>
+            <th>Index</th>
             <th>商品名</th>
             <th>店舗名</th>
             <th>現在地からの直線距離,時間</th>
@@ -16,6 +17,7 @@
       </thead>
       <tbody v-if="true">
         <tr v-for="infor2 in list" :key="infor2.id" v-bind:class="[infor2.id == 0 ? 'off' : 'on']">
+            <td>{{ infor2.id }}</td>  
             <td>{{ infor2.name }}</td>
             <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
             <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
@@ -54,7 +56,7 @@ data(){
       
     },
     mounted() {
-      const q = query(collection(db,`list`),orderBy("infor_p0"))
+      const q = query(collection(db,`list`),orderBy("id"))
     onSnapshot(q,snapshot=>{
       const allId=snapshot.docs.map(doc =>{
         return doc.data().id;

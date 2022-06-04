@@ -6,13 +6,13 @@
       <li>位置追加は地図で左クリックしたら入力されます
       <br>(<strong>"販売先の位置が選択されてません"</strong> がなくなったらOK)</li>
     <hr>
-    分類 : <select v-model="newcategory1">
+    <!-- 分類 : <select v-model="newcategory1">
       <option v-for="cat1 in category1List" :key="cat1" :value="cat1">{{ cat1 }}</option>
       </select><br>
         <input type="text" :disabled="etc1" v-model="newcategory11"><br>
     種類 : <select v-model="newcategory2"><br>
       <option v-for="cat2 in category2List" :key="cat2" :value="cat2">{{ cat2 }}</option>
-        </select><br>
+        </select><br> -->
     単位 : <select v-model="newcategory3"><br>
       <option v-for="cat3 in category3List" :key="cat3" :value="cat3">{{ cat3 }}</option>
         </select><br>
@@ -75,10 +75,10 @@ export default {
       infor_t1:"",
       center: {lat : "",lng : ""}, 
       existingPlace: null ,
-      newcategory1: '',
-      newcategory11: '',
-      newcategory2: '',
-      newcategory22: '',
+      // newcategory1: '',
+      // newcategory11: '',
+      // newcategory2: '',
+      // newcategory22: '',
       newcategory3: '',
       newcategory33: '',
       newinfor_p1:"",
@@ -128,8 +128,8 @@ export default {
     Addlist(){
       addDoc(collection(db,"list"),{
         id:this.id+=1,
-        category1:this.newcategory1,
-        category2:this.newcategory2,
+        // category1:this.newcategory1,
+        // category2:this.newcategory2,
         category3:this.newcategory3,
         name:this.name,
         location0:this.newlocation0,
@@ -146,8 +146,8 @@ export default {
         console.log(`データ追加に成功しました(${doc.id})`);
         //登録後てきすとをクリアにする
         this.name="";
-        this.newcategory1="";
-        this.newcategory2="";
+        // this.newcategory1="";
+        // this.newcategory2="";
         this.newlocation0="";
         this.newinfor_p1="";
         this.newinfor_t11="";
@@ -195,34 +195,34 @@ export default {
   // restore(){
   //     this.$store.dispatch("restore")
   //   },
-    addlist(){
-    //現在ぺーじで入力されてる情報をstoreのaddlistに各項目で登録するメソッド
-      this.$store.commit("addlist",{
-        category1:this.newcategory1,
-        category11:this.newcategory11,
-        category2:this.newcategory2,
-        category22:this.newcategory22,
-        name:this.name,
-        infor_p1:this.newinfor_p1,
-        infor_p0:parseInt(this.newinfor_p1)/parseInt(this.newinfor_t1),
-        infor_t1:this.newinfor_t1,
-        location1: { lat:this.lat, lng: this.lng },
-        location0:this.newlocation0
+    // addlist(){
+    // //現在ぺーじで入力されてる情報をstoreのaddlistに各項目で登録するメソッド
+    //   this.$store.commit("addlist",{
+    //     category1:this.newcategory1,
+    //     category11:this.newcategory11,
+    //     category2:this.newcategory2,
+    //     category22:this.newcategory22,
+    //     name:this.name,
+    //     infor_p1:this.newinfor_p1,
+    //     infor_p0:parseInt(this.newinfor_p1)/parseInt(this.newinfor_t1),
+    //     infor_t1:this.newinfor_t1,
+    //     location1: { lat:this.lat, lng: this.lng },
+    //     location0:this.newlocation0
       
-      })
-    //追加したら入力されてるのを空白にする
-        this.newcategory1=""
-        this.newcategory11=""
-        this.newcategory2=""
-        this.newcategory22="" 
-        this.name=""
-        this.newinfor_p1=""
-        this.newinfor_t1=""
-        this.newlocation1=""
-        this.newlocation0=""
-    //追加したら入力されてるのを空白にする
-      },
-    //テキストタグのcategori11をstoreのinforにpushする必要あり
+    //   })
+    // //追加したら入力されてるのを空白にする
+    //     this.newcategory1=""
+    //     this.newcategory11=""
+    //     this.newcategory2=""
+    //     this.newcategory22="" 
+    //     this.name=""
+    //     this.newinfor_p1=""
+    //     this.newinfor_t1=""
+    //     this.newlocation1=""
+    //     this.newlocation0=""
+    // //追加したら入力されてるのを空白にする
+    //   },
+    // //テキストタグのcategori11をstoreのinforにpushする必要あり
 
 
 
@@ -294,24 +294,24 @@ export default {
     return this.newcategory2 === 'その他' ? false : true
     },
   //store のinforから抽出してcategory1を取り出す
-    category1List() {
-      const result = this.list.map((item) => {
-      return item.category1
-    })
-    //重複データを消す
+  //   category1List() {
+  //     const result = this.list.map((item) => {
+  //     return item.category1
+  //   })
+  //   //重複データを消す
       
-      return new Set(result)
-  },
-    category2List() {
+  //     return new Set(result)
+  // },
+  //   category2List() {
       
-      let result = this.list.map((item) => {
-        if(this.newcategory1===item.category1 ){
-      return item.category2 }
-    })
-    let result2=new Set(result)
-    result2.delete(undefined)
-        return result2
-  },
+  //     let result = this.list.map((item) => {
+  //       if(this.newcategory1===item.category1 ){
+  //     return item.category2 }
+  //   })
+  //   let result2=new Set(result)
+  //   result2.delete(undefined)
+  //       return result2
+  // },
   category3List() {
       
       let result = this.list.map((item) => {
