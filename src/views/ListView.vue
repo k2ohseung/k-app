@@ -13,6 +13,7 @@
             <th>1個(m,g)あたり価格(税込)</th>
             <th>販売規格(個,m,g)</th>
             <th>販売価格(税込)</th>
+            <th>画像有無</th>
         </tr>
       </thead>
       <tbody v-if="true">
@@ -24,6 +25,7 @@
             <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
             <td>{{ infor2.infor_t11 }}入り*{{ infor2.infor_t12 }}({{ infor2.category3 }})</td>
             <td>{{ infor2.infor_p1 }}円</td>
+            <td>なし</td>
         </tr>
     </tbody>
     </table>

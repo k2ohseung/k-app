@@ -1,97 +1,64 @@
-<template>  
+<template>
   <div>
-    <h3><p>Add page </p>  </h3>
-    <hr>
-      <li>全部入力する必要があります。<br>(入力が漏れてる場合は追加ができません)</li>
-      <li>位置追加は地図で左クリックしたら入力されます
-      <br>(<strong>"販売先の位置が選択されてません"</strong> がなくなったらOK)</li>
-    <hr>
-    <!-- 分類 : <select v-model="newcategory1">
-      <option v-for="cat1 in category1List" :key="cat1" :value="cat1">{{ cat1 }}</option>
-      </select><br>
-        <input type="text" :disabled="etc1" v-model="newcategory11"><br>
-    種類 : <select v-model="newcategory2"><br>
-      <option v-for="cat2 in category2List" :key="cat2" :value="cat2">{{ cat2 }}</option>
-        </select><br> -->
-    単位 : <select v-model="newcategory3"><br>
-      <option v-for="cat3 in category3List" :key="cat3" :value="cat3">{{ cat3 }}</option>
-        </select><br>
-        <input type="text" :disabled="etc3" v-model="newcategory33"><br>
-    名前: <input v-model="name" type="text"><br>
-    販売先: <input  id="hidden" v-model="newlocation1" ><input v-model="newlocation0" type="text"><br>
-    (店舗名まで入力したら経路検索が容易になります)<br>
-    値段(税込): <input v-model="newinfor_p1" type="number">円 <br>
-    販売規格: <input   v-model="newinfor_t11" type="number">入り*
-    <input   v-model="newinfor_t12" type="number">
-    <p v-if="onoff2">入力されてない項目があります</p>
-    <strong style=color:red;><p v-if="onoff">販売先の位置が選択されてません</p></strong>
-      <p v-if="onoff==false">販売先の位置が選択されました</p>
-    
-    <p><button class="btn" :disabled="blank" @click="Addlist">追加</button></p>
-    <!-- <label>メニュー画像：<input ref="imgUp" type="file" id="fileImg"></label> -->
-
-
-    <!-- <button @click="imgUpload">IMGアップロード</button> -->
-    <!-- <button @click="removeMenu(list.id, list.menuImgFile)">データ削除</button>  -->
-    <gmap-map @click="place($event)" id="map" :zoom="19" :center="center" style="width:100%; height: 600px;" >
-      <gmap-circle :center="center" :options="{ fillColor: '#0000FF', fillOpacity: 0.3, strokeWeight: 1, strokeColor: '#0000FF', radius: 25, clickable: false }" > </gmap-circle>
-    </gmap-map> 
-    
-    
-    <!-- <GM/> -->
+    <h1>list page</h1>
+    <div>
+    <input v-if="false" type="text" v-model="searchName">
+        <table >
+      <thead>
+        <tr>
+            <th>Index</th>
+            <th>商品名</th>
+            <th>店舗名</th>
+            <th>現在地からの直線距離,時間</th>
+            <th>1個(m,g)あたり価格(税込)</th>
+            <th>販売規格(個,m,g)</th>
+            <th>販売価格(税込)</th>
+            <th>画像有無</th>
+        </tr>
+      </thead>
+      <tbody v-if="true">
+        <tr v-for="infor2 in list" :key="infor2.id" v-bind:class="[infor2.id == 0 ? 'off' : 'on']">
+            <td>{{ infor2.id }}</td>  
+            <td>{{ infor2.name }}</td>
+            <td>(座標検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location1[0])+"%2C"+(infor2.location1[1])'>{{ infor2.location0 }}</a>  (店名検索)<a target="_blank" :href='"https://www.google.com/maps/search/?api=1&query="+(infor2.location0)'>{{ infor2.location0 }} </a></td>
+            <td>{{distance(latitude,longitude,infor2.location1[0],infor2.location1[1]).toFixed(2)}}km,     徒歩:約{{Math.floor(distance(latitude,longitude,infor2.location1[0],infor2.location1[1])*15)}}分</td>
+            <td>{{ infor2.infor_p0.toLocaleString({ maximumFractionDigits: [3] })}}円</td>
+            <td>{{ infor2.infor_t11 }}入り*{{ infor2.infor_t12 }}({{ infor2.category3 }})</td>
+            <td>{{ infor2.infor_p1 }}円</td>
+            <td>なし</td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
   </div>
 </template>
 
 <script>
-import {db,storage} from "@/firebase/firesbase";
-import {collection ,serverTimestamp, addDoc , onSnapshot, query, orderBy, doc } from "firebase/firestore"
+// import { defineComponent } from '@vue/composition-api'
+import {db,storage } from "@/firebase/firesbase";
+import {collection , doc,  onSnapshot, query, orderBy, } from "firebase/firestore"
 import {getDownloadURL, ref, uploadBytesResumable, deleteObject,where, getDocs,deleteDoc,} from 'firebase/storage';
 
-
 export default {
-  name:"App",
 
-  components:{
-    // GM
-  // CategoryView
-  },
-
-  //ページ読み込んだら自動読み込み
-  created(){
-    this.$store.dispatch("restore");
-
-  },
-  data(){
-    return {
-      list:[],
-      id:0,
-      category1:"",
-      category2:"",
-      name:"",
-      location0:"",
-      location1:[],
-      infor_p0:"",
-      infor_p1:"",
-      infor_t1:"",
-      center: {lat : "",lng : ""}, 
-      existingPlace: null ,
-      // newcategory1: '',
-      // newcategory11: '',
-      // newcategory2: '',
-      // newcategory22: '',
-      newcategory3: '',
-      newcategory33: '',
-      newinfor_p1:"",
-      newinfor_t11:"",
-      newinfor_t12:"",
-      lat:"",
-      lng:"",
-      newlocation1:[this.lat,this.lng],
-      newlocation0:"",
-    }
-  },
-  mounted() {
-    const q = query(collection(db,`list`),orderBy("id"))
+  
+data(){
+      return {
+        list:[],
+        searchName:"",
+        latitude: 0,
+        longitude: 0,
+        location0:"(店名)",
+        location1:"座標",
+        times:"",
+        infor_p0:"",
+        filter:null,
+        result1:"",
+      }
+      
+    },
+    mounted() {
+      const q = query(collection(db,`list`),orderBy("id"))
     onSnapshot(q,snapshot=>{
       const allId=snapshot.docs.map(doc =>{
         return doc.data().id;
@@ -113,119 +80,44 @@ export default {
         }
     })
   })
-    if (navigator.geolocation) {
+    if (navigator.geolocation) {  
       navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords;
-          this.center.lat = coords.latitude;
-          this.center.lng = coords.longitude;
+          this.latitude = coords.latitude;
+          this.longitude = coords.longitude;
         }.bind(this),
       );
     }
   },
-
-  methods:{
-    Addlist(){
-      addDoc(collection(db,"list"),{
-        id:this.id+=1,
-        // category1:this.newcategory1,
-        // category2:this.newcategory2,
-        category3:this.newcategory3,
-        name:this.name,
-        location0:this.newlocation0,
-        location1:this.newlocation1,
-        infor_p0:this.newinfor_p1/(this.newinfor_t11*this.newinfor_t12),
-        infor_p1:this.newinfor_p1,
-        infor_t11:this.newinfor_t11,
-        infor_t12:this.newinfor_t12,
-        written: serverTimestamp(),
-        
-        
-        })
-      .then((doc)=>{
-        console.log(`データ追加に成功しました(${doc.id})`);
-        //登録後てきすとをクリアにする
-        this.name="";
-        // this.newcategory1="";
-        // this.newcategory2="";
-        this.newlocation0="";
-        this.newinfor_p1="";
-        this.newinfor_t11="";
-        this.newinfor_t12="";
-        
-      })
-      .catch(error => {
-        //エラー時の処理
-        console.log(`データ追加に失敗しました(${error})`);
-      })
-    }, 
-    place(event){
-            if (event) {
-              this.lat = event.latLng.lat()
-              this.lng = event.latLng.lng()
-              this.newlocation1[0]=this.lat
-              this.newlocation1[1]=this.lng
-            }
-      },
+  computed: {
+    distance() {
+      // 関数の返り値に別の関数を定義し、別の関数内で引数を受け取ってあげる
+      return function(lat0,lng0,lat,lng) {
+        let disx=lat0-lat;
+        let disy=lng0-lng;
+      let result1=Math.sqrt(Math.abs(disx*disx) + Math.abs(disy*disy))*100;
+      return this.result1=result1
+      }
     },
-  
-  //テキスト入力してエンター押したらcategory にpushされる
-  //newcategory11はテキストタグ1の変数
-  // addCategory() {
-  //   this.category.push({ id: this.nextCategoryId, category1: this.newcategory11})
-  //   this.nextCategoryId++
-  //   this.newcategory11=""
-  // },
-  //newcategory22はテキストタグ2の変数
-  // addCategory2() {
-  //   this.category2.push({ id: this.nextCategory22Id, category2: this.newcategory22})
-  //   this.nextCategory22Id++
-  //   this.newcategory22=""
-  // },
-  //テキスト入力してエンター押したらcategory にpushされる
-
-//ローカルストレジに保存するメソッド
-    // save(){
-    //   this.$store.dispatch("save")
-    // },
-
-
-
-      //クリックイベントで読み込み(現在OFFにしてる)  
-  // restore(){
-  //     this.$store.dispatch("restore")
-  //   },
-    // addlist(){
-    // //現在ぺーじで入力されてる情報をstoreのaddlistに各項目で登録するメソッド
-    //   this.$store.commit("addlist",{
-    //     category1:this.newcategory1,
-    //     category11:this.newcategory11,
-    //     category2:this.newcategory2,
-    //     category22:this.newcategory22,
-    //     name:this.name,
-    //     infor_p1:this.newinfor_p1,
-    //     infor_p0:parseInt(this.newinfor_p1)/parseInt(this.newinfor_t1),
-    //     infor_t1:this.newinfor_t1,
-    //     location1: { lat:this.lat, lng: this.lng },
-    //     location0:this.newlocation0
+    onoff(){
+      if(this.searchName===""){
+        return false}
+        else{
+          return true}
+      },
+    
+    infor(){
+      return this.$store.state.infor
+    },
+    search_name(){
+      return this.infor.filter(infor => {
+          return infor.name.includes(this.searchName)
+        })
       
-    //   })
-    // //追加したら入力されてるのを空白にする
-    //     this.newcategory1=""
-    //     this.newcategory11=""
-    //     this.newcategory2=""
-    //     this.newcategory22="" 
-    //     this.name=""
-    //     this.newinfor_p1=""
-    //     this.newinfor_t1=""
-    //     this.newlocation1=""
-    //     this.newlocation0=""
-    // //追加したら入力されてるのを空白にする
-    //   },
-    // //テキストタグのcategori11をstoreのinforにpushする必要あり
-
-
-
+    },
+  },
+  methods:{
     async removeMenu(id, photo) {
       //削除ボタンをクリックした商品データをfirestore内から削除
       const delQuery = query(collection(db, 'list'), where('id', '==', id))
@@ -267,73 +159,30 @@ export default {
         })
       });
     },
-  
-  getCurrentPosition(){
-
-    },
     
+  }
 
-//常に更新
-  computed:{
-    onoff2(){
-            return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t11===""||this.newinfor_t12===""||this.newlocation0===""? true : false
-    },
-    blank(){
-      return this.newcategory1===""||this.name==="" ||this.newcategory2===""||this.newinfor_p1===""||this.newinfor_t11===""||""||this.newinfor_t12===""||this.newlocation0===""||this.lat==="" ? true : false
-    },
-    onoff(){
-      return this.lat === '' ? true : false
-    },
-    infor(){
-      return this.$store.state.infor
-    },
-    etc1() {
-      return this.newcategory1 === 'その他' ? false : true
-    },
-    etc2() {
-    return this.newcategory2 === 'その他' ? false : true
-    },
-  //store のinforから抽出してcategory1を取り出す
-  //   category1List() {
-  //     const result = this.list.map((item) => {
-  //     return item.category1
-  //   })
-  //   //重複データを消す
-      
-  //     return new Set(result)
-  // },
-  //   category2List() {
-      
-  //     let result = this.list.map((item) => {
-  //       if(this.newcategory1===item.category1 ){
-  //     return item.category2 }
-  //   })
-  //   let result2=new Set(result)
-  //   result2.delete(undefined)
-  //       return result2
-  // },
-  category3List() {
-      
-      let result = this.list.map((item) => {
-      return item.category3 
-    })
-    let result3=new Set(result)
-    result3.delete(undefined)
-        return result3
-  },
-  },
 }
 
 </script>
 
-
 <style scoped>
-.information_t1 {
-margin-right: 5px;
-}
-  #hidden{
-    display:none;
-  }
 
+  table{
+        border-collapse: collapse;
+        width:100%
+    }
+  td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+  th {
+        color:white;
+        background-color: #1E90FF;
+    }
+  .off{
+      display: none;
+
+    }
 </style>
-
